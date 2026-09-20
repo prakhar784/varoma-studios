@@ -28,11 +28,11 @@ contactForm.addEventListener("submit", (event) => {
   );
 
   // Replace this address with your official Varoma Studios email.
-  const businessEmail = "YOUR_EMAIL_HERE@example.com";
+  const businessEmail = "varomastudios@gmail.com";
   window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
 
   formMessage.textContent =
-    "Your email app is opening. Replace the business email in script.js before publishing.";
+    "Your email app is opening to send your inquiry to Varoma Studios.";
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
@@ -51,11 +51,14 @@ function buildOrderSummary() {
 orderForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const summary = buildOrderSummary();
+  const subject = encodeURIComponent(`New Varoma Studios Project Order — ${document.getElementById("orderType").value}`);
+  const body = encodeURIComponent(summary);
+  window.location.href = `mailto:varomastudios@gmail.com?subject=${subject}&body=${body}`;
   try {
     await navigator.clipboard.writeText(summary);
-    orderResult.innerHTML = `<strong>Order details prepared!</strong><br>They have been copied. Send them to Varoma Studios through your preferred channel.`;
+    orderResult.innerHTML = `<strong>Order prepared!</strong><br>Your email app is opening, and the order details have also been copied.`;
   } catch (error) {
-    orderResult.innerHTML = `<strong>Order details prepared!</strong><br><textarea class="summary-box" readonly>${summary.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</textarea>`;
+    orderResult.innerHTML = `<strong>Order prepared!</strong><br>Your email app is opening to send the order to Varoma Studios.<br><textarea class="summary-box" readonly>${summary.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</textarea>`;
   }
   orderResult.classList.add("show");
 });
