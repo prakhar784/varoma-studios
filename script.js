@@ -36,3 +36,32 @@ contactForm.addEventListener("submit", (event) => {
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+
+// Project order form: prepares a structured inquiry for review/copying.
+const orderForm = document.getElementById("orderForm");
+const orderResult = document.getElementById("orderResult");
+const clearOrder = document.getElementById("clearOrder");
+
+function buildOrderSummary() {
+  const get = (id) => document.getElementById(id).value.trim();
+  return `VAROMA STUDIOS — PROJECT ORDER\n\nName: ${get("orderName")}\nEmail: ${get("orderEmail")}\nPhone/WhatsApp: ${get("orderPhone")}\nProject Type: ${get("orderType")}\nBudget: ${get("orderBudget")}\nTimeline: ${get("orderTimeline")}\n\nRequirements:\n${get("orderDetails")}`;
+}
+
+orderForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const summary = buildOrderSummary();
+  try {
+    await navigator.clipboard.writeText(summary);
+    orderResult.innerHTML = `<strong>Order details prepared!</strong><br>They have been copied. Send them to Varoma Studios through your preferred channel.`;
+  } catch (error) {
+    orderResult.innerHTML = `<strong>Order details prepared!</strong><br><textarea class="summary-box" readonly>${summary.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</textarea>`;
+  }
+  orderResult.classList.add("show");
+});
+
+clearOrder.addEventListener("click", () => {
+  orderForm.reset();
+  orderResult.textContent = "";
+  orderResult.classList.remove("show");
+});

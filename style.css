@@ -141,3 +141,16 @@ video { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: contain; 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+
+/* Project order experience */
+.order-section { max-width: 980px; }
+.order-form { background: linear-gradient(145deg, rgba(24,25,48,.95), rgba(11,12,25,.95)); border: 1px solid var(--line); border-radius: 20px; padding: 38px; }
+.form-check { display: flex; align-items: center; gap: 10px; margin: 4px 0 24px; color: var(--muted); font-size: 12px; }
+.form-check input { accent-color: var(--purple); width: 16px; height: 16px; }
+.form-check label { cursor: pointer; }
+.order-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.order-result { display: none; margin-top: 20px; padding: 16px; border: 1px solid rgba(112, 238, 181, .35); border-radius: 12px; background: rgba(38, 115, 82, .12); color: #b8f8d8; font-size: 13px; line-height: 1.7; }
+.order-result.show { display: block; }
+.summary-box { width: 100%; min-height: 180px; margin-top: 12px; padding: 12px; border-radius: 10px; background: #080a15; color: white; border: 1px solid #30334f; font: inherit; }
+@media (max-width: 700px) { .order-form { padding: 24px; } }
