@@ -119,5 +119,66 @@ pricingStyles.textContent = `
 `;
 document.head.appendChild(pricingStyles);
 
+const contactVisual = document.createElement('div');
+contactVisual.className = 'contact-visual';
+contactVisual.setAttribute('aria-label', 'Animated digital workspace showing website, app, cloud and growth services');
+contactVisual.innerHTML = `
+  <div class="contact-orbit orbit-a"></div>
+  <div class="contact-orbit orbit-b"></div>
+  <div class="contact-orbit orbit-c"></div>
+  <div class="contact-laptop">
+    <div class="laptop-screen"><span>V</span><strong>IDEAS INTO<br>IMPACT</strong><i></i></div>
+    <div class="laptop-base"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="contact-chip chip-code">&lt;/&gt;<small>Web</small></div>
+  <div class="contact-chip chip-app">▯<small>Apps</small></div>
+  <div class="contact-chip chip-cloud">⌁<small>Cloud</small></div>
+  <div class="contact-chip chip-growth">▥<small>Growth</small></div>
+  <div class="contact-chip chip-design">✦<small>Design</small></div>
+  <div class="contact-chip chip-custom">⚙<small>Custom</small></div>
+  <div class="contact-stars">✦　·　✧　·　✦</div>
+`;
+
+if (contactSection) {
+  const contactHeading = contactSection.querySelector('.section-heading');
+  if (contactHeading && !contactSection.querySelector('.contact-visual')) contactHeading.insertAdjacentElement('afterend', contactVisual);
+}
+
+const contactStyles = document.createElement('style');
+contactStyles.textContent = `
+  .contact-section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr); align-items: center; column-gap: 55px; row-gap: 20px; }
+  .contact-section > .section-heading { grid-column: 1; grid-row: 1; margin-bottom: 0; }
+  .contact-section > .contact-visual { grid-column: 2; grid-row: 1; }
+  .contact-section > .contact-form { grid-column: 1 / -1; grid-row: 2; width: 100%; max-width: 900px; }
+  .contact-visual { position: relative; min-height: 430px; width: 100%; display: grid; place-items: center; isolation: isolate; }
+  .contact-visual::before { content: ''; position: absolute; width: 290px; height: 290px; border-radius: 50%; background: radial-gradient(circle, rgba(115,87,255,.32), rgba(83,200,255,.08) 52%, transparent 72%); filter: blur(14px); animation: contactGlow 5s ease-in-out infinite; }
+  .contact-laptop { position: relative; width: 245px; height: 175px; transform: perspective(700px) rotateX(12deg) rotateY(-18deg) rotateZ(-4deg); animation: laptopFloat 5s ease-in-out infinite; filter: drop-shadow(0 22px 25px rgba(0,0,0,.5)); z-index: 3; }
+  .laptop-screen { position: absolute; inset: 0 18px 28px; border: 7px solid #34306b; border-radius: 12px 12px 5px 5px; background: linear-gradient(145deg, #10132d, #1d1850 60%, #080812); box-shadow: inset 0 0 24px rgba(83,200,255,.18), 0 0 18px rgba(115,87,255,.32); display: grid; place-items: center; text-align: center; overflow: hidden; }
+  .laptop-screen::after { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(83,200,255,.35); border-radius: 4px; }
+  .laptop-screen span { color: #53c8ff; font-size: 38px; font-weight: 900; font-style: italic; z-index: 1; }
+  .laptop-screen strong { color: #fff; font-size: 13px; line-height: 1.25; letter-spacing: 1px; z-index: 1; }
+  .laptop-screen i { position: absolute; width: 180%; height: 2px; background: #53c8ff; box-shadow: 0 0 16px #53c8ff; transform: rotate(-25deg); animation: scanLine 3.5s linear infinite; }
+  .laptop-base { position: absolute; left: 0; right: 0; bottom: 0; height: 42px; border-radius: 5px 5px 18px 18px; background: linear-gradient(145deg, #6f61d6, #24244e 55%, #101022); border: 1px solid #7f76e8; display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; padding: 9px 24px 12px; transform: skewX(-8deg); }
+  .laptop-base span { border-radius: 2px; background: rgba(180,185,255,.5); }
+  .contact-orbit { position: absolute; width: 360px; height: 125px; border: 1px solid rgba(83,200,255,.5); border-radius: 50%; z-index: 1; }
+  .orbit-a { transform: rotate(24deg); animation: contactOrbit 12s linear infinite; }
+  .orbit-b { transform: rotate(-35deg) scaleY(.8); border-color: rgba(169,149,255,.65); animation: contactOrbit 16s linear infinite reverse; }
+  .orbit-c { transform: rotate(90deg) scaleY(.7); border-color: rgba(115,87,255,.55); animation: contactOrbit 20s linear infinite; }
+  .contact-chip { position: absolute; z-index: 4; width: 70px; min-height: 58px; padding: 8px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: #fff; border: 1px solid rgba(140,120,255,.75); border-radius: 12px; background: rgba(24,20,61,.92); box-shadow: 0 0 22px rgba(115,87,255,.22); backdrop-filter: blur(8px); font-size: 23px; animation: chipFloat 4s ease-in-out infinite; }
+  .contact-chip small { font-size: 10px; color: #d5d2ff; letter-spacing: .3px; }
+  .chip-code { top: 42px; left: 7%; } .chip-app { top: 130px; left: -1%; animation-delay: .6s; } .chip-cloud { bottom: 62px; left: 9%; animation-delay: 1.2s; } .chip-growth { top: 66px; right: 5%; animation-delay: 1.8s; } .chip-design { top: 190px; right: -1%; animation-delay: 2.4s; } .chip-custom { bottom: 54px; right: 9%; animation-delay: 3s; }
+  .contact-stars { position: absolute; bottom: 14px; color: #a995ff; font-size: 12px; letter-spacing: 4px; animation: starPulse 3s ease-in-out infinite; }
+  @keyframes contactGlow { 0%,100% { transform: scale(.92); opacity: .65; } 50% { transform: scale(1.08); opacity: 1; } }
+  @keyframes laptopFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+  @keyframes scanLine { from { translate: -100px -100px; } to { translate: 100px 100px; } }
+  @keyframes contactOrbit { from { rotate: 0deg; } to { rotate: 360deg; } }
+  @keyframes chipFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -9px; } }
+  @keyframes starPulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
+  @media (max-width: 900px) { .contact-section { display: block; } .contact-section > .section-heading { margin-bottom: 35px; } .contact-visual { min-height: 350px; margin-bottom: 30px; } .contact-section > .contact-form { max-width: 650px; } }
+  @media (max-width: 600px) { .contact-visual { transform: scale(.88); transform-origin: center; min-height: 320px; margin-block: -12px; } }
+  @media (prefers-reduced-motion: reduce) { .contact-visual *, .contact-visual::before { animation: none !important; } }
+`;
+document.head.appendChild(contactStyles);
+
 const currentYear = document.getElementById('currentYear');
 if (currentYear) currentYear.textContent = new Date().getFullYear();
