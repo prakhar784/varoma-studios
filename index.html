@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-site-verification" content="rhZSt8dJUEMaPSnQ8WDIfeFdtabXDCuji6mCwqdwDlI" />
+  <meta name="google-site-verification" content="rhZSt8dJUEMaPSn8QWDIfeFdtabXDCuji6mCwqdwDlI" />
   <meta name="theme-color" content="#080812">
 
   <title>Varoma Studios | Website, App & AI Development</title>
@@ -34,15 +34,17 @@
   </script>
 
   <link rel="stylesheet" href="style.css">
+  <style>
+    .brand-logo { display: block; width: 220px; height: auto; }
+    .site-footer .brand-logo { width: 240px; }
+    @media (max-width: 600px) { .brand-logo, .site-footer .brand-logo { width: 185px; } }
+  </style>
 </head>
 <body>
 
   <header>
     <nav class="navbar">
-      <div class="logo" aria-label="Varoma Studios">
-        <span class="logo-mark">V</span>
-        <span class="logo-copy"><strong>VAROMA<span>STUDIOS</span></strong><small>IDEAS TO IMPACT</small></span>
-      </div>
+      <a class="brand-link" href="#" aria-label="Varoma Studios home"><img class="brand-logo" src="branding-logo.svg" alt="Varoma Studios — Ideas to Impact"></a>
       <ul class="nav-links">
         <li><a href="#">Home</a></li>
         <li><a href="#services">Services</a></li>
@@ -128,7 +130,7 @@
     </section>
   </main>
 
-  <footer class="site-footer"><div><div class="logo"><span class="logo-mark">V</span><span class="logo-copy"><strong>VAROMA<span>STUDIOS</span></strong><small>IDEAS TO IMPACT</small></span></div><p>Digital products, thoughtful design, measurable impact.</p><p>Email: <a href="mailto:varomastudios@gmail.com">varomastudios@gmail.com</a> · WhatsApp: <a href="https://wa.me/918853245638" target="_blank" rel="noopener">+91 88532 45638</a></p></div><p>© <span id="currentYear"></span> Varoma Studios. All rights reserved.</p></footer>
+  <footer class="site-footer"><div><a class="brand-link" href="#" aria-label="Varoma Studios home"><img class="brand-logo" src="branding-logo.svg" alt="Varoma Studios — Ideas to Impact"></a><p>Digital products, thoughtful design, measurable impact.</p><p>Email: <a href="mailto:varomastudios@gmail.com">varomastudios@gmail.com</a> · WhatsApp: <a href="https://wa.me/918853245638" target="_blank" rel="noopener">+91 88532 45638</a></p></div><p>© <span id="currentYear"></span> Varoma Studios. All rights reserved.</p></footer>
   <script src="script.js" defer></script>
 </body>
 </html>
