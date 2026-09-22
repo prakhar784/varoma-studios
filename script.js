@@ -35,13 +35,16 @@ revealElements.forEach((element) => {
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 
-contactForm.addEventListener("submit", (event) => {
+if (contactForm) {
+  contactForm.addEventListener("submit", () => {
+    const emailInput = document.getElementById("email");
+    const replyTo = document.getElementById("replyTo");
+    if (emailInput && replyTo) replyTo.value = emailInput.value;
+    if (formMessage) {
+      formMessage.textContent = "Submitting your inquiry…";
+    }
+  });
+}
 
-  event.preventDefault();
-
-  formMessage.textContent =
-    "Thank you! Your demo inquiry has been received.";
-
-  contactForm.reset();
-
-});
+const currentYear = document.getElementById("currentYear");
+if (currentYear) currentYear.textContent = new Date().getFullYear();

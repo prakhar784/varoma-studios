@@ -281,13 +281,19 @@
 
   </div>
 
-  <form class="contact-form" id="contactForm">
+  <form class="contact-form" id="contactForm" action="https://formsubmit.co/varomastudios@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="New Varoma Studios Customer Inquiry">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://varoma-studios-site.prakhara609.workers.dev/#contact">
+    <input type="hidden" name="_replyto" id="replyTo">
 
     <div class="form-group">
       <label for="name">Your Name</label>
       <input
         type="text"
         id="name"
+        name="name"
         placeholder="Enter your name"
         required
       >
@@ -298,6 +304,7 @@
       <input
         type="email"
         id="email"
+        name="email"
         placeholder="Enter your email"
         required
       >
@@ -306,7 +313,7 @@
     <div class="form-group">
       <label for="service">What do you need?</label>
 
-      <select id="service" required>
+      <select id="service" name="service" required>
         <option value="">Select a service</option>
         <option value="Website">Website Development</option>
         <option value="App">App Development</option>
@@ -321,6 +328,7 @@
 
       <textarea
         id="message"
+        name="message"
         rows="5"
         placeholder="Tell us about your project..."
         required
@@ -332,6 +340,10 @@
       Send Inquiry →
     </button>
 
+    <a class="secondary-button" href="https://wa.me/918853245638?text=Hello%20Varoma%20Studios%2C%20I%20want%20to%20discuss%20a%20project." target="_blank" rel="noopener">
+      Chat on WhatsApp →
+    </a>
+
     <p id="formMessage"></p>
 
   </form>
@@ -342,7 +354,7 @@
   <footer class="site-footer">
     <div>
       <div class="logo">VAROMA<span>STUDIOS</span></div>
-      <p>Digital products, thoughtful design, measurable impact.</p>
+      <p>Digital products, thoughtful design, measurable impact.</p><p>Email: <a href="mailto:varomastudios@gmail.com">varomastudios@gmail.com</a> · WhatsApp: <a href="https://wa.me/918853245638" target="_blank" rel="noopener">+91 88532 45638</a></p>
     </div>
     <p>© <span id="currentYear"></span> Varoma Studios. All rights reserved.</p>
   </footer>
