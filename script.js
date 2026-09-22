@@ -16,6 +16,20 @@ if ('IntersectionObserver' in window) {
   });
 }
 
+const logoStyles = document.createElement('style');
+logoStyles.textContent = `
+  .navbar .logo, .site-footer .logo { display: inline-flex; align-items: center; gap: 12px; }
+  .logo-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; color: #fff; font-size: 28px; font-weight: 800; font-style: italic; background: linear-gradient(145deg, #53c8ff, #7357ff); box-shadow: 0 0 24px rgba(83,200,255,.2); }
+  .logo-copy { display: flex; flex-direction: column; gap: 2px; line-height: 1; }
+  .logo-copy strong { color: #fff; font-size: 19px; letter-spacing: .8px; }
+  .logo-copy strong span { color: #53c8ff; }
+  .logo-copy small { color: #aaaac0; font-size: 9px; letter-spacing: 2.5px; margin-top: 4px; }
+  .hero-video-wrap { overflow: hidden; }
+  .hero-video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+  @media (max-width: 600px) { .logo-mark { width: 36px; height: 36px; font-size: 24px; } .logo-copy strong { font-size: 16px; } .logo-copy small { font-size: 8px; letter-spacing: 1.8px; } }
+`;
+document.head.appendChild(logoStyles);
+
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
@@ -104,57 +118,6 @@ pricingStyles.textContent = `
   @media (max-width: 600px) { .pricing-section { padding: 75px 6%; } .pricing-grid { grid-template-columns: 1fr; } .pricing-card { min-height: 320px; } }
 `;
 document.head.appendChild(pricingStyles);
-
-/* Right-side live digital globe animation. The existing left-side content stays untouched. */
-const heroVisual = document.querySelector('.hero-video-wrap');
-if (heroVisual) {
-  heroVisual.classList.add('live-globe-wrap');
-  heroVisual.innerHTML = `
-    <div class="live-globe" aria-label="Animated digital globe">
-      <div class="globe-core"><span>V</span></div>
-      <div class="globe-grid"></div>
-      <div class="globe-orbit orbit-one"></div>
-      <div class="globe-orbit orbit-two"></div>
-      <div class="globe-orbit orbit-three"></div>
-      <div class="globe-node node-one"></div>
-      <div class="globe-node node-two"></div>
-      <div class="globe-node node-three"></div>
-      <div class="globe-node node-four"></div>
-      <div class="globe-label label-web">▣ Web</div>
-      <div class="globe-label label-apps">▯ Apps</div>
-      <div class="globe-label label-cloud">⌁ Cloud</div>
-      <div class="globe-label label-growth">▥ Growth</div>
-    </div>
-  `;
-
-  const globeStyles = document.createElement('style');
-  globeStyles.textContent = `
-    .live-globe-wrap { position: relative; flex: 0 0 500px; width: min(100%, 500px); height: 470px; padding: 0; background: transparent; border: 0; box-shadow: none; display: grid; place-items: center; overflow: visible; }
-    .live-globe { position: relative; width: 430px; height: 430px; display: grid; place-items: center; filter: drop-shadow(0 0 28px rgba(115,87,255,.22)); animation: globeFloat 6s ease-in-out infinite; }
-    .globe-core { position: absolute; width: 245px; height: 245px; border-radius: 50%; background: radial-gradient(circle at 32% 25%, #9c8bff 0 4%, #5542c5 23%, #171b58 58%, #080812 100%); border: 1px solid rgba(130,177,255,.8); box-shadow: inset -25px -20px 55px rgba(0,0,0,.65), 0 0 42px rgba(83,103,255,.48), 0 0 95px rgba(115,87,255,.18); animation: globeSpin 18s linear infinite; display: grid; place-items: center; overflow: hidden; }
-    .globe-core::before, .globe-core::after { content: ''; position: absolute; inset: 13px; border: 1px solid rgba(83,200,255,.48); border-radius: 50%; transform: rotate(35deg) scaleX(.42); }
-    .globe-core::after { transform: rotate(-35deg) scaleX(.7); border-color: rgba(169,149,255,.55); }
-    .globe-core span { position: relative; z-index: 2; color: #fff; font-size: 66px; font-weight: 800; text-shadow: 0 0 20px #a995ff; }
-    .globe-grid { position: absolute; width: 270px; height: 270px; border-radius: 50%; background: repeating-linear-gradient(0deg, transparent 0 21px, rgba(83,200,255,.25) 22px 23px), repeating-linear-gradient(90deg, transparent 0 21px, rgba(169,149,255,.22) 22px 23px); mask-image: radial-gradient(circle, black 58%, transparent 71%); -webkit-mask-image: radial-gradient(circle, black 58%, transparent 71%); animation: gridSpin 22s linear infinite reverse; }
-    .globe-orbit { position: absolute; width: 405px; height: 150px; border: 1px solid rgba(83,200,255,.75); border-radius: 50%; box-shadow: 0 0 12px rgba(83,200,255,.18); }
-    .orbit-one { transform: rotate(25deg); animation: orbitRotate 9s linear infinite; }
-    .orbit-two { transform: rotate(-35deg) scaleY(.78); border-color: rgba(169,149,255,.8); animation: orbitRotate 12s linear infinite reverse; }
-    .orbit-three { transform: rotate(90deg) scaleY(.58); border-color: rgba(115,87,255,.75); animation: orbitRotate 15s linear infinite; }
-    .globe-node { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #b8f1ff; box-shadow: 0 0 16px 5px rgba(83,200,255,.65); animation: nodePulse 2.4s ease-in-out infinite; }
-    .node-one { top: 105px; left: 70px; } .node-two { top: 88px; right: 62px; animation-delay: .5s; } .node-three { bottom: 85px; left: 100px; animation-delay: 1s; } .node-four { bottom: 110px; right: 76px; animation-delay: 1.5s; }
-    .globe-label { position: absolute; padding: 12px 18px; border: 1px solid rgba(140,120,255,.7); border-radius: 14px; background: rgba(24,20,61,.9); color: #fff; font-size: 16px; font-weight: 700; box-shadow: 0 0 22px rgba(115,87,255,.2); backdrop-filter: blur(8px); animation: labelFloat 4s ease-in-out infinite; }
-    .label-web { top: 72px; left: 12px; } .label-apps { top: 125px; right: -2px; animation-delay: .7s; } .label-cloud { bottom: 88px; left: -5px; animation-delay: 1.2s; } .label-growth { bottom: 115px; right: -2px; border-color: rgba(83,200,255,.7); animation-delay: 1.8s; }
-    @keyframes globeFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-    @keyframes globeSpin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
-    @keyframes gridSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes orbitRotate { from { rotate: 0deg; } to { rotate: 360deg; } }
-    @keyframes nodePulse { 0%,100% { scale: 1; opacity: .65; } 50% { scale: 1.8; opacity: 1; } }
-    @keyframes labelFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -8px; } }
-    @media (max-width: 900px) { .live-globe-wrap { flex-basis: auto; width: 100%; max-width: 500px; height: 390px; } .live-globe { transform: scale(.82); } }
-    @media (prefers-reduced-motion: reduce) { .live-globe, .globe-core, .globe-grid, .globe-orbit, .globe-node, .globe-label { animation: none !important; } }
-  `;
-  document.head.appendChild(globeStyles);
-}
 
 const currentYear = document.getElementById('currentYear');
 if (currentYear) currentYear.textContent = new Date().getFullYear();
