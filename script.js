@@ -48,13 +48,22 @@ if (contactForm) {
     if (formMessage) formMessage.textContent = "Sending your inquiry…";
 
     try {
+      const formData = new FormData(contactForm);
+      const payload = Object.fromEntries(formData.entries());
+
       const response = await fetch(contactForm.action, {
         method: "POST",
-        body: new FormData(contactForm),
-        headers: { Accept: "application/json" }
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify(payload)
       });
 
-      if (!response.ok) throw new Error("Request failed");
+      const result = await response.json().catch(() => null);
+      if (!response.ok || (result && result.success === false)) {
+        throw new Error(result?.message || "Request failed");
+      }
 
       contactForm.reset();
       if (formMessage) {
