@@ -4,16 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="rhZSt8dJUEMaPSnQ8WDIfeFdtabXDCuji6mCwqdwDlI" />
+  <meta name="theme-color" content="#080812">
 
   <title>Varoma Studios | Website, App & AI Development</title>
   <meta name="description" content="Varoma Studios creates modern websites, mobile applications, UI/UX designs and AI solutions for ambitious businesses.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://varoma-studios-site.prakhara609.workers.dev/">
+  <meta property="og:site_name" content="Varoma Studios">
   <meta property="og:title" content="Varoma Studios | Digital Innovation Studio">
   <meta property="og:description" content="Modern websites, powerful applications, UI/UX design and AI solutions for growing businesses.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://varoma-studios-site.prakhara609.workers.dev/">
   <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Varoma Studios | Digital Innovation Studio">
+  <meta name="twitter:description" content="Modern websites, applications, UI/UX design and AI solutions for growing businesses.">
 
   <script type="application/ld+json">
   {
@@ -59,7 +63,7 @@
         </div>
       </div>
       <div class="hero-video-wrap">
-        <video class="hero-video" controls autoplay muted loop playsinline preload="metadata">
+        <video class="hero-video" controls autoplay muted loop playsinline preload="metadata" aria-label="Varoma Studios introduction video">
           <source src="varoma-ad.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -109,18 +113,18 @@
       <div class="section-heading"><p class="tagline">✦ LET'S CONNECT</p><h2>Have An Idea? <span>Let's Build It.</span></h2><p>Tell us about your project and let's explore how we can help your business.</p></div>
       <form class="contact-form" id="contactForm" action="https://formsubmit.co/ajax/varomastudios@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New Varoma Studios Customer Inquiry"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_template" value="table"><input type="hidden" name="_next" value="https://varoma-studios-site.prakhara609.workers.dev/#contact"><input type="hidden" name="_replyto" id="replyTo">
-        <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name" placeholder="Enter your name" required></div>
-        <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="Enter your email" required></div>
+        <div class="form-group"><label for="name">Your Name</label><input type="text" id="name" name="name" placeholder="Enter your name" autocomplete="name" required></div>
+        <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email" required></div>
         <div class="form-group"><label for="service">What do you need?</label><select id="service" name="service" required><option value="">Select a service</option><option value="Website">Website Development</option><option value="App">App Development</option><option value="Design">UI/UX Design</option><option value="AI">AI Solutions</option></select></div>
         <div class="form-group"><label for="message">Project Details</label><textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required></textarea></div>
         <button type="submit" class="primary-button">Send Inquiry →</button>
         <a class="secondary-button" href="https://wa.me/918853245638?text=Hello%20Varoma%20Studios%2C%20I%20want%20to%20discuss%20a%20project." target="_blank" rel="noopener">Chat on WhatsApp →</a>
-        <p id="formMessage"></p>
+        <p id="formMessage" aria-live="polite"></p>
       </form>
     </section>
   </main>
 
   <footer class="site-footer"><div><div class="logo">VAROMA<span>STUDIOS</span></div><p>Digital products, thoughtful design, measurable impact.</p><p>Email: <a href="mailto:varomastudios@gmail.com">varomastudios@gmail.com</a> · WhatsApp: <a href="https://wa.me/918853245638" target="_blank" rel="noopener">+91 88532 45638</a></p></div><p>© <span id="currentYear"></span> Varoma Studios. All rights reserved.</p></footer>
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
