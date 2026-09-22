@@ -36,12 +36,36 @@ const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", () => {
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
     const emailInput = document.getElementById("email");
     const replyTo = document.getElementById("replyTo");
     if (emailInput && replyTo) replyTo.value = emailInput.value;
-    if (formMessage) {
-      formMessage.textContent = "Submitting your inquiry…";
+
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
+    if (formMessage) formMessage.textContent = "Sending your inquiry…";
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: new FormData(contactForm),
+        headers: { Accept: "application/json" }
+      });
+
+      if (!response.ok) throw new Error("Request failed");
+
+      contactForm.reset();
+      if (formMessage) {
+        formMessage.textContent = "Thank you! Your inquiry has been sent successfully.";
+      }
+    } catch (error) {
+      if (formMessage) {
+        formMessage.textContent = "Unable to send right now. Please try again or contact us on WhatsApp.";
+      }
+    } finally {
+      if (submitButton) submitButton.disabled = false;
     }
   });
 }
