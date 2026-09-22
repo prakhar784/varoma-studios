@@ -1,104 +1,355 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Varoma Studios builds modern websites, mobile apps, UI/UX experiences and AI-powered digital solutions.">
-  <title>Varoma Studios | Digital Experiences That Matter</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <title>Varoma Studios | Digital Innovation</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <nav class="navbar container" aria-label="Primary navigation">
-      <a class="logo" href="#home" aria-label="Varoma Studios home">VAROMA<span>STUDIOS</span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#portfolio">Projects</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a class="nav-cta" href="#contact">Let's Talk ↗</a></li>
-      </ul>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+
+      <div class="logo">
+        VAROMA<span>STUDIOS</span>
+      </div>
+
+
+<ul class="nav-links">
+  <li><a href="#">Home</a></li>
+  <li><a href="#services">Services</a></li>
+  <li><a href="#portfolio">Projects</a></li>
+  <li><a href="#about">About</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ul>
+
+<a href="#contact" class="nav-button">Let's Talk</a>
+
     </nav>
   </header>
 
-  <main id="home">
-    <section class="hero container">
-      <div class="hero-content reveal">
-        <p class="eyebrow">✦ DIGITAL INNOVATION STUDIO</p>
-        <h1>We build <span>digital experiences</span> that matter.</h1>
-        <p class="hero-copy">Varoma Studios creates modern websites, powerful applications, and smart digital solutions for ambitious businesses.</p>
-        <div class="button-row">
-          <a class="button primary" href="#contact">Start a Project ↗</a>
-          <a class="button secondary" href="#portfolio">Explore Our Work ↓</a>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <p class="tagline">✦ DIGITAL INNOVATION STUDIO</p>
+
+        <h1>
+          We Build
+          <span>Digital Experiences</span>
+          That Matter.
+        </h1>
+
+        <p class="description">
+          Varoma Studios creates modern websites,
+          powerful applications, and digital solutions
+          for ambitious businesses.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#contact" class="primary-button">Start a Project →</a>
+          <a href="#portfolio" class="secondary-button">Explore Our Work</a>
         </div>
-        <div class="trust-row"><span>● Strategy</span><span>● Design</span><span>● Development</span></div>
-      </div>
-      <div class="hero-art reveal" aria-label="Digital innovation illustration">
-        <div class="orb"></div>
-        <div class="floating-card card-a">✦<strong>Creative</strong><small>Ideas with purpose</small></div>
-        <div class="floating-card card-b">◈<strong>Modern</strong><small>Technology that scales</small></div>
-        <div class="main-art-card"><span class="art-symbol">✦</span><p>BUILD<br><b>BEYOND</b></p><small>Ideas into digital reality.</small></div>
-      </div>
-    </section>
 
-    <section class="stats-section">
-      <div class="container stats-grid">
-        <div><strong>01</strong><span>Creative approach</span></div>
-        <div><strong>100%</strong><span>Focused on quality</span></div>
-        <div><strong>∞</strong><span>Ideas & possibilities</span></div>
       </div>
-    </section>
 
-    <section class="section container" id="services">
-      <div class="section-heading reveal">
-        <p class="eyebrow">✦ WHAT WE DO</p>
-        <h2>Solutions designed <span>for your growth.</span></h2>
-        <p>We combine thoughtful design and reliable technology to help your business build a stronger digital future.</p>
+      <div class="hero-visual">
+        <div class="glow-circle"></div>
+        <div class="visual-card">
+          <span>✦</span>
+          <h2>Build Beyond</h2>
+          <p>Ideas into digital reality.</p>
+        </div>
       </div>
-      <div class="service-grid">
-        <article class="service-card reveal"><div class="service-icon">✦</div><h3>Web Development</h3><p>Fast, responsive and conversion-focused websites tailored to your brand.</p><a href="#contact" data-service="Website Development">Discuss website ↗</a></article>
-        <article class="service-card reveal"><div class="service-icon">◈</div><h3>App Development</h3><p>Useful mobile and web applications with smooth, intuitive user experiences.</p><a href="#contact" data-service="App Development">Discuss app ↗</a></article>
-        <article class="service-card reveal"><div class="service-icon">◇</div><h3>UI/UX Design</h3><p>Clean interfaces and user journeys that balance usability with visual excellence.</p><a href="#contact" data-service="UI/UX Design">Discuss design ↗</a></article>
-        <article class="service-card reveal"><div class="service-icon">⌘</div><h3>AI Solutions</h3><p>Practical AI concepts that automate workflows and unlock new possibilities.</p><a href="#contact" data-service="AI Solutions">Discuss AI ↗</a></article>
-      </div>
-    </section>
 
-    <section class="section alt" id="about">
-      <div class="container about-grid">
-        <div class="reveal"><p class="eyebrow">✦ ABOUT VAROMA STUDIOS</p><h2>Turning ideas into <span>digital reality.</span></h2><p>We are a digital development studio focused on modern websites, applications and technology solutions for growing businesses.</p><p>Our approach combines clear communication, creative thinking and dependable implementation—from the first idea to the final launch.</p><a class="button primary" href="#contact">Work With Us ↗</a></div>
-        <div class="about-panel reveal"><div class="panel-icon">✦</div><h3>Innovation</h3><p>Design. Develop. Deliver.</p><div class="mini-list"><span>✓ Clear communication</span><span>✓ Responsive experiences</span><span>✓ Business-focused solutions</span></div></div>
-      </div>
     </section>
+    
+<!-- Services Section -->
+<section class="services-section" id="services">
 
-    <section class="section container" id="portfolio">
-      <div class="section-heading reveal"><p class="eyebrow">✦ OUR WORK</p><h2>Projects built with <span>purpose.</span></h2><p>Explore sample concepts that show the type of digital experiences we can create.</p></div>
-      <div class="portfolio-grid">
-        <article class="project-card reveal"><div class="project-image project-one"><span>WEB</span></div><div class="project-info"><small>WEB DEVELOPMENT</small><h3>Business Website</h3><p>A responsive website concept for a growing business.</p><a href="#contact" data-project="Business Website">Build something similar ↗</a></div></article>
-        <article class="project-card reveal"><div class="project-image project-two"><span>APP</span></div><div class="project-info"><small>APP DEVELOPMENT</small><h3>Productivity App</h3><p>A concept application designed to improve everyday productivity.</p><a href="#contact" data-project="Productivity App">Build something similar ↗</a></div></article>
-        <article class="project-card reveal"><div class="project-image project-three"><span>AI</span></div><div class="project-info"><small>AI SOLUTIONS</small><h3>Smart Assistant</h3><p>An AI-powered assistant concept for digital workflows.</p><a href="#contact" data-project="Smart Assistant">Build something similar ↗</a></div></article>
-      </div>
-    </section>
+  <div class="section-heading">
+    <p class="tagline">✦ WHAT WE DO</p>
 
-    <section class="section contact-section alt" id="contact">
-      <div class="container contact-grid">
-        <div class="section-heading reveal"><p class="eyebrow">✦ LET'S CONNECT</p><h2>Have an idea? <span>Let's build it.</span></h2><p>Share a few details about your project. Your email app will open with a prepared inquiry that you can send to Varoma Studios.</p><div class="contact-note">Tip: Update <b>BUSINESS_EMAIL</b> in script.js before launch.</div></div>
-        <form class="contact-form reveal" id="contactForm">
-          <div class="form-row"><label>Full name<input id="name" name="name" required autocomplete="name" placeholder="Your name"></label><label>Email<input id="email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"></label></div>
-          <div class="form-row"><label>Phone (optional)<input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+91"></label><label>Service<select id="service" name="service" required><option value="">Choose a service</option><option>Website Development</option><option>App Development</option><option>UI/UX Design</option><option>AI Solutions</option><option>Other</option></select></label></div>
-          <div class="form-row"><label>Budget<select id="budget" name="budget"><option value="">Select budget</option><option>Below ₹10,000</option><option>₹10,000–₹25,000</option><option>₹25,000–₹50,000</option><option>₹50,000+</option><option>Not decided</option></select></label><label>Timeline<select id="timeline" name="timeline"><option value="">Select timeline</option><option>1–2 weeks</option><option>2–4 weeks</option><option>1–2 months</option><option>Flexible</option></select></label></div>
-          <label>Project details<textarea id="message" name="message" rows="5" required placeholder="Tell us what you want to build..."></textarea></label>
-          <button class="button primary full" type="submit">Prepare Inquiry ↗</button>
-          <p class="form-message" id="formMessage" role="status"></p>
-        </form>
+    <h2>Solutions Designed<br>
+      <span>For Your Growth.</span>
+    </h2>
+
+    <p>
+      We combine creative design and modern technology
+      to help businesses build their digital future.
+    </p>
+  </div>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">✦</div>
+      <h3>Web Development</h3>
+      <p>
+        Fast, responsive and modern websites
+        designed for your business.
+      </p>
+      <a href="#contact">Discuss This Service →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <h3>App Development</h3>
+      <p>
+        Powerful mobile applications with
+        seamless user experiences.
+      </p>
+      <a href="#contact">Discuss This Service →</a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">◇</div>
+      <h3>UI/UX Design</h3>
+      <p>
+        Beautiful interfaces that combine
+        usability and visual excellence.
+      </p>
+      <a href="#contact">Discuss This Service →</a>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- Stats Section -->
+<section class="stats-section">
+ <div class="stat">
+    <h2>01</h2>
+    <p>Creative Approach</p>
+  </div>
+
+  <div class="stat">
+    <h2>100%</h2>
+    <p>Focused On Quality</p>
+  </div>
+
+  <div class="stat">
+    <h2>∞</h2>
+    <p>Ideas & Possibilities</p>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section" id="about">
+
+  <div class="about-content">
+
+    <p class="tagline">✦ ABOUT VAROMA STUDIOS</p>
+
+    <h2>
+      Turning Ideas Into
+      <span>Digital Reality.</span>
+    </h2>
+
+    <p>
+      Varoma Studios is a digital development studio
+      focused on building modern websites, applications,
+      and technology solutions for businesses.
+    </p>
+
+    <p>
+      Our goal is to combine creative design,
+      reliable technology, and meaningful user experiences.
+    </p>
+
+    <a href="#contact" class="primary-button">
+      Work With Us →
+    </a>
+
+  </div>
+
+  <div class="about-visual">
+
+    <div class="about-box">
+      <span>✦</span>
+      <h3>Innovation</h3>
+      <p>Design. Develop. Deliver.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- Portfolio Section -->
+<section class="portfolio-section" id="portfolio">
+
+  <div class="section-heading">
+
+    <p class="tagline">✦ OUR WORK</p>
+
+    <h2>
+      Projects Built With
+      <span>Purpose.</span>
+    </h2>
+
+    <p>
+      Explore our sample projects and digital experiences.
+    </p>
+
+  </div>
+
+  <div class="portfolio-grid">
+
+    <div class="project-card">
+
+      <div class="project-image project-one">
+        <span>WEB</span>
       </div>
-    </section>
+
+      <div class="project-info">
+        <p class="project-category">Web Development</p>
+        <h3>Business Website</h3>
+        <p>
+          A modern responsive website concept
+          for a growing business.
+        </p>
+        <a href="#contact">Build Something Similar →</a>
+      </div>
+
+    </div>
+
+
+    <div class="project-card">
+
+      <div class="project-image project-two">
+        <span>APP</span>
+      </div>
+
+      <div class="project-info">
+        <p class="project-category">App Development</p>
+        <h3>Productivity App</h3>
+        <p>
+          A concept application designed
+          to improve everyday productivity.
+        </p>
+        <a href="#contact">Build Something Similar →</a>
+      </div>
+
+    </div>
+
+
+    <div class="project-card">
+
+      <div class="project-image project-three">
+        <span>AI</span>
+      </div>
+
+      <div class="project-info">
+        <p class="project-category">AI Solutions</p>
+        <h3>Smart Assistant</h3>
+        <p>
+          An AI-powered assistant concept
+          for digital workflows.
+        </p>
+        <a href="#contact">Build Something Similar →</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+
+  <div class="section-heading">
+
+    <p class="tagline">✦ LET'S CONNECT</p>
+
+    <h2>
+      Have An Idea?
+      <span>Let's Build It.</span>
+    </h2>
+
+    <p>
+      Tell us about your project and let's
+      explore how we can help your business.
+    </p>
+
+  </div>
+
+  <form class="contact-form" id="contactForm">
+
+    <div class="form-group">
+      <label for="name">Your Name</label>
+      <input
+        type="text"
+        id="name"
+        placeholder="Enter your name"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="service">What do you need?</label>
+
+      <select id="service" required>
+        <option value="">Select a service</option>
+        <option value="Website">Website Development</option>
+        <option value="App">App Development</option>
+        <option value="Design">UI/UX Design</option>
+        <option value="AI">AI Solutions</option>
+      </select>
+
+    </div>
+
+    <div class="form-group">
+      <label for="message">Project Details</label>
+
+      <textarea
+        id="message"
+        rows="5"
+        placeholder="Tell us about your project..."
+        required
+      ></textarea>
+
+    </div>
+
+    <button type="submit" class="primary-button">
+      Send Inquiry →
+    </button>
+
+    <p id="formMessage"></p>
+
+  </form>
+
+</section>
   </main>
 
-  <footer class="footer"><div class="container footer-inner"><a class="logo" href="#home">VAROMA<span>STUDIOS</span></a><p>Building meaningful digital experiences.</p><p>© <span id="year"></span> Varoma Studios. All rights reserved.</p></div></footer>
+  <footer class="site-footer">
+    <div>
+      <div class="logo">VAROMA<span>STUDIOS</span></div>
+      <p>Digital products, thoughtful design, measurable impact.</p>
+    </div>
+    <p>© <span id="currentYear"></span> Varoma Studios. All rights reserved.</p>
+  </footer>
+
   <script src="script.js"></script>
+
 </body>
 </html>
