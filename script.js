@@ -18,15 +18,15 @@ if ('IntersectionObserver' in window) {
 
 const logoStyles = document.createElement('style');
 logoStyles.textContent = `
-  .navbar .logo, .site-footer .logo { display: inline-flex; align-items: center; gap: 12px; }
-  .logo-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; color: #fff; font-size: 28px; font-weight: 800; font-style: italic; background: linear-gradient(145deg, #53c8ff, #7357ff); box-shadow: 0 0 24px rgba(83,200,255,.2); }
-  .logo-copy { display: flex; flex-direction: column; gap: 2px; line-height: 1; }
-  .logo-copy strong { color: #fff; font-size: 19px; letter-spacing: .8px; }
-  .logo-copy strong span { color: #53c8ff; }
-  .logo-copy small { color: #aaaac0; font-size: 9px; letter-spacing: 2.5px; margin-top: 4px; }
+  .navbar .logo, .site-footer .logo { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px 8px 12px; background: linear-gradient(135deg, #101521, #080b14); clip-path: polygon(0 0, 94% 0, 100% 50%, 94% 100%, 0 100%); border-radius: 8px; }
+  .logo-mark { display: grid; place-items: center; width: 34px; height: 38px; color: #fff; font-size: 32px; font-weight: 900; font-style: italic; line-height: 1; background: linear-gradient(145deg, #ffffff 8%, #53c8ff 48%, #7357ff 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px rgba(83,200,255,.22)); }
+  .logo-copy { display: flex; flex-direction: column; gap: 3px; line-height: 1; }
+  .logo-copy strong { color: #fff; font-size: 15px; letter-spacing: .45px; white-space: nowrap; }
+  .logo-copy strong span { color: #fff; }
+  .logo-copy small { color: #b5b8c8; font-size: 6.5px; letter-spacing: 1.7px; text-align: center; white-space: nowrap; margin-top: 2px; }
   .hero-video-wrap { overflow: hidden; }
   .hero-video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
-  @media (max-width: 600px) { .logo-mark { width: 36px; height: 36px; font-size: 24px; } .logo-copy strong { font-size: 16px; } .logo-copy small { font-size: 8px; letter-spacing: 1.8px; } }
+  @media (max-width: 600px) { .navbar .logo, .site-footer .logo { padding: 6px 12px 6px 8px; gap: 5px; } .logo-mark { width: 28px; height: 32px; font-size: 27px; } .logo-copy strong { font-size: 12px; } .logo-copy small { font-size: 5.5px; letter-spacing: 1.35px; } }
 `;
 document.head.appendChild(logoStyles);
 
