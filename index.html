@@ -3,298 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Varoma Studios creates premium websites, applications and digital experiences.">
-  <title>Varoma Studios | Digital Innovation Studio</title>
+  <meta name="description" content="Varoma Studios builds modern websites, mobile apps, UI/UX experiences and AI-powered digital solutions.">
+  <title>Varoma Studios | Digital Experiences That Matter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="background-grid"></div>
-
   <header class="site-header">
-    <nav class="navbar container" aria-label="Main navigation">
-      <a class="logo" href="#home" aria-label="Varoma Studios home">
-        VAROMA<span>STUDIOS</span>
-      </a>
-
-      <ul class="nav-links">
+    <nav class="navbar container" aria-label="Primary navigation">
+      <a class="logo" href="#home" aria-label="Varoma Studios home">VAROMA<span>STUDIOS</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
         <li><a href="#home">Home</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#portfolio">Projects</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#order">Start Order</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a class="nav-cta" href="#contact">Let's Talk ↗</a></li>
       </ul>
-
-      <a href="#order" class="nav-button">Start Order <span>↗</span></a>
     </nav>
   </header>
 
-  <main>
-    <section class="hero container" id="home">
+  <main id="home">
+    <section class="hero container">
       <div class="hero-content reveal">
-        <p class="eyebrow"><span>✦</span> DIGITAL INNOVATION STUDIO</p>
-        <h1>We Build <span>Digital Experiences</span> That Matter.</h1>
-        <p class="hero-description">
-          We create modern websites, powerful applications and intelligent digital solutions
-          for ambitious brands and growing businesses.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#contact" class="primary-button">Start a Project <span>↗</span></a>
-          <a href="#portfolio" class="secondary-button">Explore Our Work <span>↓</span></a>
+        <p class="eyebrow">✦ DIGITAL INNOVATION STUDIO</p>
+        <h1>We build <span>digital experiences</span> that matter.</h1>
+        <p class="hero-copy">Varoma Studios creates modern websites, powerful applications, and smart digital solutions for ambitious businesses.</p>
+        <div class="button-row">
+          <a class="button primary" href="#contact">Start a Project ↗</a>
+          <a class="button secondary" href="#portfolio">Explore Our Work ↓</a>
         </div>
-
-        <div class="hero-meta">
-          <span><i></i> Design-led development</span>
-          <span><i></i> Built for the future</span>
-        </div>
+        <div class="trust-row"><span>● Strategy</span><span>● Design</span><span>● Development</span></div>
       </div>
-
-      <div class="hero-media reveal">
-        <div class="media-glow"></div>
-        <div class="video-frame">
-          <div class="video-topbar">
-            <span class="status-dot"></span>
-            <span>VAROMA / CREATIVE REEL</span>
-            <span>00:10</span>
-          </div>
-          <video autoplay muted loop playsinline controls poster="varoma_ad_montage.png">
-            <source src="varoma-ad.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <div class="video-caption">
-            <span>IDEAS → DIGITAL REALITY</span>
-            <span>PLAY / REPLAY</span>
-          </div>
-        </div>
+      <div class="hero-art reveal" aria-label="Digital innovation illustration">
+        <div class="orb"></div>
+        <div class="floating-card card-a">✦<strong>Creative</strong><small>Ideas with purpose</small></div>
+        <div class="floating-card card-b">◈<strong>Modern</strong><small>Technology that scales</small></div>
+        <div class="main-art-card"><span class="art-symbol">✦</span><p>BUILD<br><b>BEYOND</b></p><small>Ideas into digital reality.</small></div>
       </div>
     </section>
 
-    <section class="services-section section" id="services">
+    <section class="stats-section">
+      <div class="container stats-grid">
+        <div><strong>01</strong><span>Creative approach</span></div>
+        <div><strong>100%</strong><span>Focused on quality</span></div>
+        <div><strong>∞</strong><span>Ideas & possibilities</span></div>
+      </div>
+    </section>
+
+    <section class="section container" id="services">
       <div class="section-heading reveal">
-        <p class="eyebrow"><span>✦</span> WHAT WE DO</p>
-        <h2>Solutions Designed <span>For Your Growth.</span></h2>
-        <p>Creative thinking meets modern technology to build digital products that look sharp and work smoothly.</p>
+        <p class="eyebrow">✦ WHAT WE DO</p>
+        <h2>Solutions designed <span>for your growth.</span></h2>
+        <p>We combine thoughtful design and reliable technology to help your business build a stronger digital future.</p>
       </div>
-
-      <div class="services-grid">
-        <article class="service-card reveal">
-          <div class="service-number">01</div>
-          <div class="service-icon">✦</div>
-          <h3>Web Development</h3>
-          <p>Fast, responsive and conversion-focused websites for your business.</p>
-          <a href="#contact">Explore Service ↗</a>
-        </article>
-
-        <article class="service-card reveal">
-          <div class="service-number">02</div>
-          <div class="service-icon">◈</div>
-          <h3>App Development</h3>
-          <p>Useful and scalable mobile experiences built around your customers.</p>
-          <a href="#contact">Explore Service ↗</a>
-        </article>
-
-        <article class="service-card reveal">
-          <div class="service-number">03</div>
-          <div class="service-icon">◇</div>
-          <h3>UI/UX Design</h3>
-          <p>Clean interfaces that balance visual quality, clarity and usability.</p>
-          <a href="#contact">Explore Service ↗</a>
-        </article>
+      <div class="service-grid">
+        <article class="service-card reveal"><div class="service-icon">✦</div><h3>Web Development</h3><p>Fast, responsive and conversion-focused websites tailored to your brand.</p><a href="#contact" data-service="Website Development">Discuss website ↗</a></article>
+        <article class="service-card reveal"><div class="service-icon">◈</div><h3>App Development</h3><p>Useful mobile and web applications with smooth, intuitive user experiences.</p><a href="#contact" data-service="App Development">Discuss app ↗</a></article>
+        <article class="service-card reveal"><div class="service-icon">◇</div><h3>UI/UX Design</h3><p>Clean interfaces and user journeys that balance usability with visual excellence.</p><a href="#contact" data-service="UI/UX Design">Discuss design ↗</a></article>
+        <article class="service-card reveal"><div class="service-icon">⌘</div><h3>AI Solutions</h3><p>Practical AI concepts that automate workflows and unlock new possibilities.</p><a href="#contact" data-service="AI Solutions">Discuss AI ↗</a></article>
       </div>
     </section>
 
-    <section class="stats-section container reveal" aria-label="Studio highlights">
-      <div class="stat"><strong>01</strong><span>Creative approach</span></div>
-      <div class="stat"><strong>100%</strong><span>Focused on quality</span></div>
-      <div class="stat"><strong>∞</strong><span>Ideas & possibilities</span></div>
-    </section>
-
-    <section class="about-section section container" id="about">
-      <div class="about-content reveal">
-        <p class="eyebrow"><span>✦</span> ABOUT VAROMA STUDIOS</p>
-        <h2>Turning Ideas Into <span>Digital Reality.</span></h2>
-        <p>Varoma Studios is a digital development studio focused on modern websites, applications and technology solutions for businesses.</p>
-        <p>Our goal is to combine creative design, reliable technology and meaningful user experiences in every project.</p>
-        <a href="#contact" class="primary-button">Work With Us <span>↗</span></a>
-      </div>
-
-      <div class="about-visual reveal">
-        <div class="orbit-card">
-          <div class="orbit-ring"></div>
-          <span class="orbit-symbol">✦</span>
-          <h3>Innovation</h3>
-          <p>Design. Develop. Deliver.</p>
-          <div class="orbit-label">V / S</div>
-        </div>
+    <section class="section alt" id="about">
+      <div class="container about-grid">
+        <div class="reveal"><p class="eyebrow">✦ ABOUT VAROMA STUDIOS</p><h2>Turning ideas into <span>digital reality.</span></h2><p>We are a digital development studio focused on modern websites, applications and technology solutions for growing businesses.</p><p>Our approach combines clear communication, creative thinking and dependable implementation—from the first idea to the final launch.</p><a class="button primary" href="#contact">Work With Us ↗</a></div>
+        <div class="about-panel reveal"><div class="panel-icon">✦</div><h3>Innovation</h3><p>Design. Develop. Deliver.</p><div class="mini-list"><span>✓ Clear communication</span><span>✓ Responsive experiences</span><span>✓ Business-focused solutions</span></div></div>
       </div>
     </section>
 
-    <section class="portfolio-section section" id="portfolio">
-      <div class="section-heading container reveal">
-        <p class="eyebrow"><span>✦</span> OUR WORK</p>
-        <h2>Projects Built With <span>Purpose.</span></h2>
-        <p>Explore our sample concepts and digital experiences.</p>
-      </div>
-
-      <div class="portfolio-grid container">
-        <article class="project-card reveal">
-          <div class="project-image project-one"><span>WEB</span><small>01 / 03</small></div>
-          <div class="project-info">
-            <p class="project-category">Web Development</p>
-            <h3>Business Website</h3>
-            <p>A modern responsive website concept for a growing business.</p>
-            <a href="#contact">View Project ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card reveal">
-          <div class="project-image project-two"><span>APP</span><small>02 / 03</small></div>
-          <div class="project-info">
-            <p class="project-category">App Development</p>
-            <h3>Productivity App</h3>
-            <p>A concept application designed to improve everyday productivity.</p>
-            <a href="#contact">View Project ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card reveal">
-          <div class="project-image project-three"><span>AI</span><small>03 / 03</small></div>
-          <div class="project-info">
-            <p class="project-category">AI Solutions</p>
-            <h3>Smart Assistant</h3>
-            <p>An AI-powered assistant concept for digital workflows.</p>
-            <a href="#contact">View Project ↗</a>
-          </div>
-        </article>
+    <section class="section container" id="portfolio">
+      <div class="section-heading reveal"><p class="eyebrow">✦ OUR WORK</p><h2>Projects built with <span>purpose.</span></h2><p>Explore sample concepts that show the type of digital experiences we can create.</p></div>
+      <div class="portfolio-grid">
+        <article class="project-card reveal"><div class="project-image project-one"><span>WEB</span></div><div class="project-info"><small>WEB DEVELOPMENT</small><h3>Business Website</h3><p>A responsive website concept for a growing business.</p><a href="#contact" data-project="Business Website">Build something similar ↗</a></div></article>
+        <article class="project-card reveal"><div class="project-image project-two"><span>APP</span></div><div class="project-info"><small>APP DEVELOPMENT</small><h3>Productivity App</h3><p>A concept application designed to improve everyday productivity.</p><a href="#contact" data-project="Productivity App">Build something similar ↗</a></div></article>
+        <article class="project-card reveal"><div class="project-image project-three"><span>AI</span></div><div class="project-info"><small>AI SOLUTIONS</small><h3>Smart Assistant</h3><p>An AI-powered assistant concept for digital workflows.</p><a href="#contact" data-project="Smart Assistant">Build something similar ↗</a></div></article>
       </div>
     </section>
 
-    <section class="order-section section container" id="order">
-      <div class="section-heading reveal">
-        <p class="eyebrow"><span>✦</span> START YOUR PROJECT</p>
-        <h2>Turn Your Idea Into A <span>Real Product.</span></h2>
-        <p>Share your requirements, choose a service and prepare a structured project inquiry in under a minute.</p>
+    <section class="section contact-section alt" id="contact">
+      <div class="container contact-grid">
+        <div class="section-heading reveal"><p class="eyebrow">✦ LET'S CONNECT</p><h2>Have an idea? <span>Let's build it.</span></h2><p>Share a few details about your project. Your email app will open with a prepared inquiry that you can send to Varoma Studios.</p><div class="contact-note">Tip: Update <b>BUSINESS_EMAIL</b> in script.js before launch.</div></div>
+        <form class="contact-form reveal" id="contactForm">
+          <div class="form-row"><label>Full name<input id="name" name="name" required autocomplete="name" placeholder="Your name"></label><label>Email<input id="email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"></label></div>
+          <div class="form-row"><label>Phone (optional)<input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+91"></label><label>Service<select id="service" name="service" required><option value="">Choose a service</option><option>Website Development</option><option>App Development</option><option>UI/UX Design</option><option>AI Solutions</option><option>Other</option></select></label></div>
+          <div class="form-row"><label>Budget<select id="budget" name="budget"><option value="">Select budget</option><option>Below ₹10,000</option><option>₹10,000–₹25,000</option><option>₹25,000–₹50,000</option><option>₹50,000+</option><option>Not decided</option></select></label><label>Timeline<select id="timeline" name="timeline"><option value="">Select timeline</option><option>1–2 weeks</option><option>2–4 weeks</option><option>1–2 months</option><option>Flexible</option></select></label></div>
+          <label>Project details<textarea id="message" name="message" rows="5" required placeholder="Tell us what you want to build..."></textarea></label>
+          <button class="button primary full" type="submit">Prepare Inquiry ↗</button>
+          <p class="form-message" id="formMessage" role="status"></p>
+        </form>
       </div>
-
-      <form class="order-form reveal" id="orderForm">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="orderName">Full Name *</label>
-            <input id="orderName" name="orderName" type="text" placeholder="Your full name" required>
-          </div>
-          <div class="form-group">
-            <label for="orderEmail">Email *</label>
-            <input id="orderEmail" name="orderEmail" type="email" placeholder="you@example.com" required>
-          </div>
-        </div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="orderPhone">WhatsApp / Phone *</label>
-            <input id="orderPhone" name="orderPhone" type="tel" placeholder="Your contact number" required>
-          </div>
-          <div class="form-group">
-            <label for="orderType">Project Type *</label>
-            <select id="orderType" name="orderType" required>
-              <option value="">Choose project type</option>
-              <option>Business Website</option>
-              <option>E-commerce Website</option>
-              <option>Web Application</option>
-              <option>Android / iOS App</option>
-              <option>UI/UX Design</option>
-              <option>AI / Automation Solution</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="orderBudget">Estimated Budget *</label>
-            <select id="orderBudget" name="orderBudget" required>
-              <option value="">Choose budget</option>
-              <option>Under ₹10,000</option>
-              <option>₹10,000 – ₹25,000</option>
-              <option>₹25,000 – ₹50,000</option>
-              <option>₹50,000 – ₹1,00,000</option>
-              <option>₹1,00,000+</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="orderTimeline">Expected Timeline *</label>
-            <select id="orderTimeline" name="orderTimeline" required>
-              <option value="">Choose timeline</option>
-              <option>Within 1 week</option>
-              <option>2–3 weeks</option>
-              <option>1–2 months</option>
-              <option>Flexible</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="orderDetails">Project Requirements *</label>
-          <textarea id="orderDetails" name="orderDetails" rows="6" placeholder="Tell us what you want to build, important features, reference websites, etc." required></textarea>
-        </div>
-        <div class="form-check">
-          <input id="orderConsent" type="checkbox" required>
-          <label for="orderConsent">I confirm that the information provided is correct.</label>
-        </div>
-        <div class="order-actions">
-          <button type="submit" class="primary-button">Prepare My Order <span>↗</span></button>
-          <button type="button" class="secondary-button" id="clearOrder">Clear Form</button>
-        </div>
-        <div class="order-result" id="orderResult" role="status" aria-live="polite"></div>
-      </form>
-    </section>
-
-    <section class="contact-section section container" id="contact">
-      <div class="section-heading reveal">
-        <p class="eyebrow"><span>✦</span> LET'S CONNECT</p>
-        <h2>Have An Idea? <span>Let's Build It.</span></h2>
-        <p>Tell us about your project and let's explore how we can help your business.</p>
-      </div>
-
-      <form class="contact-form reveal" id="contactForm">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="service">What do you need?</label>
-          <select id="service" name="service" required>
-            <option value="">Select a service</option>
-            <option value="Website Development">Website Development</option>
-            <option value="App Development">App Development</option>
-            <option value="UI/UX Design">UI/UX Design</option>
-            <option value="AI Solutions">AI Solutions</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="message">Project Details</label>
-          <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
-        </div>
-
-        <button type="submit" class="primary-button">Prepare Inquiry <span>↗</span></button>
-        <p id="formMessage" role="status"></p>
-      </form>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <a class="logo" href="#home">VAROMA<span>STUDIOS</span></a>
-      <p>Building the next digital experience.</p>
-      <p>© <span id="year"></span> Varoma Studios</p>
-    </div>
-  </footer>
-
+  <footer class="footer"><div class="container footer-inner"><a class="logo" href="#home">VAROMA<span>STUDIOS</span></a><p>Building meaningful digital experiences.</p><p>© <span id="year"></span> Varoma Studios. All rights reserved.</p></div></footer>
   <script src="script.js"></script>
 </body>
 </html>
