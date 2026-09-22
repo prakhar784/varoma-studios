@@ -81,6 +81,13 @@ pricingSection.innerHTML = `
   </div>
   <div class="pricing-grid">
     <article class="pricing-card">
+      <p class="pricing-label">STUDENT</p>
+      <h3>Portfolio Website</h3>
+      <p class="pricing-price">₹1,499<span>+</span></p>
+      <p>Simple personal portfolio, resume and project showcase.</p>
+      <a class="primary-button" href="#contact">Get a Quote →</a>
+    </article>
+    <article class="pricing-card">
       <p class="pricing-label">STARTER</p>
       <h3>Basic Website</h3>
       <p class="pricing-price">₹2,999<span>+</span></p>
@@ -95,10 +102,24 @@ pricingSection.innerHTML = `
       <a class="primary-button" href="#contact">Get a Quote →</a>
     </article>
     <article class="pricing-card">
+      <p class="pricing-label">BUSINESS</p>
+      <h3>WhatsApp Website</h3>
+      <p class="pricing-price">₹4,999<span>+</span></p>
+      <p>Business website with WhatsApp inquiry and contact integration.</p>
+      <a class="primary-button" href="#contact">Get a Quote →</a>
+    </article>
+    <article class="pricing-card">
       <p class="pricing-label">ADVANCED</p>
       <h3>Premium Website</h3>
       <p class="pricing-price">₹8,999<span>+</span></p>
       <p>For advanced designs, features and custom experiences.</p>
+      <a class="primary-button" href="#contact">Get a Quote →</a>
+    </article>
+    <article class="pricing-card">
+      <p class="pricing-label">E-COMMERCE</p>
+      <h3>Online Store</h3>
+      <p class="pricing-price">₹7,999<span>+</span></p>
+      <p>Product showcase and online selling features based on scope.</p>
       <a class="primary-button" href="#contact">Get a Quote →</a>
     </article>
     <article class="pricing-card">
