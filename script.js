@@ -70,6 +70,66 @@ if (contactForm) {
   });
 }
 
+const pricingSection = document.createElement("section");
+pricingSection.className = "pricing-section";
+pricingSection.id = "pricing";
+pricingSection.innerHTML = `
+  <div class="section-heading">
+    <p class="tagline">✦ LAUNCH PRICING</p>
+    <h2>Quality Work. <span>Affordable Rates.</span></h2>
+    <p>Get started with transparent introductory pricing. Final quotes depend on your project requirements.</p>
+  </div>
+  <div class="pricing-grid">
+    <article class="pricing-card">
+      <p class="pricing-label">STARTER</p>
+      <h3>Basic Website</h3>
+      <p class="pricing-price">₹2,999<span>+</span></p>
+      <p>For simple business websites and landing pages.</p>
+      <a class="primary-button" href="#contact">Get a Quote →</a>
+    </article>
+    <article class="pricing-card featured">
+      <p class="pricing-label">POPULAR</p>
+      <h3>Standard Website</h3>
+      <p class="pricing-price">₹4,999<span>+</span></p>
+      <p>For growing businesses needing a complete website.</p>
+      <a class="primary-button" href="#contact">Get a Quote →</a>
+    </article>
+    <article class="pricing-card">
+      <p class="pricing-label">ADVANCED</p>
+      <h3>Premium Website</h3>
+      <p class="pricing-price">₹8,999<span>+</span></p>
+      <p>For advanced designs, features and custom experiences.</p>
+      <a class="primary-button" href="#contact">Get a Quote →</a>
+    </article>
+    <article class="pricing-card">
+      <p class="pricing-label">MOBILE</p>
+      <h3>App Development</h3>
+      <p class="pricing-price">₹9,999<span>+</span></p>
+      <p>Mobile app concepts and development based on scope.</p>
+      <a class="primary-button" href="#contact">Get a Quote →</a>
+    </article>
+    <article class="pricing-card">
+      <p class="pricing-label">DESIGN</p>
+      <h3>UI/UX Design</h3>
+      <p class="pricing-price">₹1,999<span>+</span></p>
+      <p>Clean, modern and user-focused interface design.</p>
+      <a class="primary-button" href="#contact">Get a Quote →</a>
+    </article>
+    <article class="pricing-card">
+      <p class="pricing-label">CUSTOM</p>
+      <h3>AI Solutions</h3>
+      <p class="pricing-price">Custom</p>
+      <p>Tailored AI features and automation for your business.</p>
+      <a class="primary-button" href="#contact">Discuss Project →</a>
+    </article>
+  </div>
+`;
+
+const contactSection = document.getElementById("contact");
+if (contactSection) {
+  contactSection.parentNode.insertBefore(pricingSection, contactSection);
+}
+
 const currentYear = document.getElementById("currentYear");
 
 if (currentYear) {
