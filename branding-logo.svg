@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="86" viewBox="0 0 360 86" role="img" aria-labelledby="title desc">
+  <title id="title">Varoma Studios</title>
+  <desc id="desc">Varoma Studios logo with the tagline Ideas to Impact</desc>
+  <defs>
+    <linearGradient id="vGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="48%" stop-color="#53c8ff"/>
+      <stop offset="100%" stop-color="#7357ff"/>
+    </linearGradient>
+    <linearGradient id="panelGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101521"/>
+      <stop offset="100%" stop-color="#080b14"/>
+    </linearGradient>
+  </defs>
+  <path d="M12 5H342L354 43 342 81H12L5 43Z" fill="url(#panelGradient)" stroke="#202b43" stroke-width="1.5"/>
+  <path d="M25 18 45 18 60 48 77 18 98 18 60 70Z" fill="url(#vGradient)"/>
+  <path d="M108 18V68" stroke="#4d5870" stroke-width="1.5"/>
+  <text x="125" y="39" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" letter-spacing="0.8">VAROMA STUDIOS</text>
+  <text x="126" y="57" fill="#b5b8c8" font-family="Arial, Helvetica, sans-serif" font-size="8" letter-spacing="3.2">IDEAS TO IMPACT</text>
+</svg>
