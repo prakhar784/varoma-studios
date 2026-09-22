@@ -109,30 +109,37 @@ const visual = document.createElement('div');
 visual.className = 'interactive-3d-visual';
 visual.setAttribute('role', 'button');
 visual.setAttribute('tabindex', '0');
-visual.setAttribute('aria-label', 'Interactive rotating 3D Varoma Studios visual. Tap to react.');
-visual.innerHTML = '<div class="orb-core"><span>V</span></div><div class="orb-ring ring-one"></div><div class="orb-ring ring-two"></div><div class="orb-ring ring-three"></div><p>Tap to interact</p>';
+visual.setAttribute('aria-label', 'Interactive rotating 3D Varoma Studios visual');
+visual.innerHTML = '<div class="orb-core"><span>V</span></div><div class="orb-ring ring-one"></div><div class="orb-ring ring-two"></div><div class="orb-ring ring-three"></div>';
 
-const hero = document.querySelector('.hero');
-if (hero) {
-  const target = hero.querySelector('.hero-content') || hero.firstElementChild;
-  if (target) target.appendChild(visual);
+const servicesHeading = document.querySelector('.services-section .section-heading');
+if (servicesHeading) {
+  servicesHeading.classList.add('heading-with-3d');
+  servicesHeading.appendChild(visual);
+} else {
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    const target = hero.querySelector('.hero-content') || hero.firstElementChild;
+    if (target) target.appendChild(visual);
+  }
 }
 
 const visualStyles = document.createElement('style');
 visualStyles.textContent = `
-  .interactive-3d-visual { position: relative; width: 230px; height: 230px; margin: 32px auto 0; perspective: 900px; cursor: pointer; touch-action: manipulation; outline: none; }
+  .heading-with-3d { display: flex; align-items: center; justify-content: center; gap: 42px; text-align: left !important; }
+  .heading-with-3d > *:not(.interactive-3d-visual) { max-width: 620px; }
+  .interactive-3d-visual { position: relative; flex: 0 0 230px; width: 230px; height: 230px; margin: 0; perspective: 900px; cursor: pointer; touch-action: manipulation; outline: none; }
   .orb-core { position: absolute; inset: 58px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 30% 25%, #b9aaff, #7357ff 42%, #24165f 78%); box-shadow: 0 0 35px rgba(115,87,255,.7), inset -12px -14px 25px rgba(0,0,0,.35); transform-style: preserve-3d; animation: orbFloat 4s ease-in-out infinite; }
   .orb-core span { color: white; font-size: 42px; font-weight: 800; text-shadow: 0 3px 12px rgba(0,0,0,.35); }
   .orb-ring { position: absolute; inset: 24px; border: 2px solid rgba(83,200,255,.75); border-radius: 50%; transform-style: preserve-3d; animation: ringSpin 9s linear infinite; }
   .ring-two { inset: 12px 45px; border-color: rgba(169,149,255,.7); animation-duration: 7s; animation-direction: reverse; transform: rotateY(70deg); }
   .ring-three { inset: 45px 12px; border-color: rgba(115,87,255,.7); animation-duration: 11s; transform: rotateX(70deg); }
-  .interactive-3d-visual p { position: absolute; bottom: -18px; width: 100%; text-align: center; color: #aaaac0; font-size: 11px; letter-spacing: .8px; }
   .interactive-3d-visual.is-active .orb-core { animation: orbPulse .65s ease; box-shadow: 0 0 65px rgba(83,200,255,.95), inset -12px -14px 25px rgba(0,0,0,.35); }
   .interactive-3d-visual:focus-visible { border-radius: 30px; box-shadow: 0 0 0 3px #53c8ff; }
   @keyframes ringSpin { from { transform: rotateX(65deg) rotateZ(0deg); } to { transform: rotateX(65deg) rotateZ(360deg); } }
   @keyframes orbFloat { 0%,100% { transform: translateY(0) rotateY(0deg); } 50% { transform: translateY(-10px) rotateY(180deg); } }
   @keyframes orbPulse { 0% { transform: scale(1); } 50% { transform: scale(1.22); } 100% { transform: scale(1); } }
-  @media (max-width: 600px) { .interactive-3d-visual { width: 190px; height: 190px; } .orb-core { inset: 48px; } .orb-ring { inset: 18px; } .ring-two { inset: 10px 38px; } .ring-three { inset: 38px 10px; } }
+  @media (max-width: 700px) { .heading-with-3d { flex-direction: column; gap: 24px; text-align: center !important; } .interactive-3d-visual { flex-basis: 190px; width: 190px; height: 190px; } .orb-core { inset: 48px; } .orb-ring { inset: 18px; } .ring-two { inset: 10px 38px; } .ring-three { inset: 38px 10px; } }
   @media (prefers-reduced-motion: reduce) { .orb-core, .orb-ring { animation: none !important; } .interactive-3d-visual.is-active .orb-core { animation: none !important; transform: scale(1.08); } }
 `;
 document.head.appendChild(visualStyles);
