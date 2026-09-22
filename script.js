@@ -274,6 +274,13 @@ pricingStyles.textContent = `
 `;
 document.head.appendChild(pricingStyles);
 
+const pricingButtons = document.querySelectorAll(".pricing-card .primary-button");
+pricingButtons.forEach((button) => {
+  if (button.textContent.includes("Get a Quote")) {
+    button.textContent = "Get a Free Quote →";
+  }
+});
+
 const currentYear = document.getElementById("currentYear");
 
 if (currentYear) {
