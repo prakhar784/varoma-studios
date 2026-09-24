@@ -93,6 +93,8 @@ pricingSection.innerHTML = `
       </article>
     `).join('')}
   </div>
+  <p class="pricing-note">Starting price. Final quote depends on project requirements.</p>
+  <button class="pricing-terms-link" type="button" id="pricingTermsButton">View Terms & Conditions →</button>
 `;
 
 const contactSection = document.getElementById('contact');
@@ -114,10 +116,56 @@ pricingStyles.textContent = `
   .pricing-price span { color: #a995ff; font-size: 18px; }
   .pricing-card > p:not(.pricing-label):not(.pricing-price) { color: #aaaac0; line-height: 1.65; margin-bottom: 28px; }
   .pricing-card .primary-button { margin-top: auto; text-align: center; width: 100%; }
+  .pricing-note { margin: 28px auto 8px; text-align: center; color: #9e9eb8; font-size: 13px; }
+  .pricing-terms-link { display: block; margin: 0 auto; border: 0; background: transparent; color: #a995ff; font: inherit; font-size: 13px; cursor: pointer; padding: 8px 12px; transition: color .2s ease; }
+  .pricing-terms-link:hover { color: #53c8ff; }
+  .pricing-terms-modal { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(3,3,10,.78); backdrop-filter: blur(8px); }
+  .pricing-terms-modal.open { display: flex; }
+  .pricing-terms-box { position: relative; width: min(620px, 100%); max-height: min(680px, 88vh); overflow: auto; padding: 34px; border: 1px solid #3b3565; border-radius: 22px; background: linear-gradient(155deg,#1e1b3a,#0f0f1f); box-shadow: 0 25px 80px rgba(0,0,0,.5); }
+  .pricing-terms-box h3 { margin: 0 42px 8px 0; font-size: 25px; }
+  .pricing-terms-box > p { color: #aaaac0; line-height: 1.6; margin-bottom: 20px; }
+  .pricing-terms-list { margin: 0; padding-left: 20px; color: #d2d1df; line-height: 1.7; }
+  .pricing-terms-list li { margin-bottom: 12px; }
+  .pricing-terms-close { position: absolute; top: 16px; right: 18px; width: 36px; height: 36px; border: 1px solid #3b3565; border-radius: 50%; background: #121225; color: #fff; font-size: 20px; cursor: pointer; }
   @media (max-width: 1100px) { .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 600px) { .pricing-section { padding: 75px 6%; } .pricing-grid { grid-template-columns: 1fr; } .pricing-card { min-height: 320px; } }
+  @media (max-width: 600px) { .pricing-section { padding: 75px 6%; } .pricing-grid { grid-template-columns: 1fr; } .pricing-card { min-height: 320px; } .pricing-terms-box { padding: 28px 22px; } }
 `;
 document.head.appendChild(pricingStyles);
+
+const pricingTermsModal = document.createElement('div');
+pricingTermsModal.className = 'pricing-terms-modal';
+pricingTermsModal.id = 'pricingTermsModal';
+pricingTermsModal.setAttribute('role', 'dialog');
+pricingTermsModal.setAttribute('aria-modal', 'true');
+pricingTermsModal.setAttribute('aria-labelledby', 'pricingTermsTitle');
+pricingTermsModal.innerHTML = `
+  <div class="pricing-terms-box">
+    <button class="pricing-terms-close" type="button" id="pricingTermsClose" aria-label="Close terms and conditions">×</button>
+    <h3 id="pricingTermsTitle">Pricing Terms & Conditions</h3>
+    <p>Our displayed prices are starting prices. Your final quote will be confirmed after we understand your project requirements.</p>
+    <ol class="pricing-terms-list">
+      <li>Displayed prices are starting prices; the final quote depends on the agreed project scope and requirements.</li>
+      <li>Domain, hosting and paid third-party services may be charged separately when required.</li>
+      <li>Additional features or major changes outside the agreed scope may be quoted separately.</li>
+      <li>Project timelines depend on requirements and timely delivery of necessary content or information.</li>
+      <li>Payment, delivery, revisions and support will follow the final quotation agreed with the customer.</li>
+    </ol>
+  </div>
+`;
+document.body.appendChild(pricingTermsModal);
+
+const pricingTermsButton = document.getElementById('pricingTermsButton');
+const pricingTermsClose = document.getElementById('pricingTermsClose');
+const closePricingTerms = () => pricingTermsModal.classList.remove('open');
+
+if (pricingTermsButton) pricingTermsButton.addEventListener('click', () => pricingTermsModal.classList.add('open'));
+if (pricingTermsClose) pricingTermsClose.addEventListener('click', closePricingTerms);
+pricingTermsModal.addEventListener('click', (event) => {
+  if (event.target === pricingTermsModal) closePricingTerms();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closePricingTerms();
+});
 
 const contactVisual = document.createElement('div');
 contactVisual.className = 'contact-visual';
