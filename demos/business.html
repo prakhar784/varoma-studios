@@ -28,9 +28,17 @@
 .team{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.member{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}.avatar{height:180px;border-radius:15px;background:linear-gradient(135deg,#ded8cc,#242424);margin-bottom:18px;position:relative;overflow:hidden}.avatar:after{content:"";position:absolute;width:130px;height:130px;border:1px solid #ffffff80;border-radius:50%;right:-30px;bottom:-35px}.member h3{margin:0;font-size:20px}.member p{color:var(--muted);font-size:12px;line-height:1.5}.member small{color:#777;font-weight:800}
 @media(max-width:900px){.trustbar{grid-template-columns:1fr 1fr}.trustitem:first-child{grid-column:1/-1}.aboutbox{grid-template-columns:1fr}.team{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.trustbar,.team{grid-template-columns:1fr}.trustitem:first-child{grid-column:auto}}
+
+.cursor-glow{position:fixed;width:280px;height:280px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,#d8ff4314 0,transparent 68%);transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:opacity .3s}@media(max-width:900px){.cursor-glow{display:none}}
+.hero-art{box-shadow:0 35px 90px #17171725}.hero-art:before{animation:spin 18s linear infinite}.hero-art:after{animation:pulse 5s ease-in-out infinite}@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{transform:scale(1.08);opacity:.72}}
+.project{isolation:isolate;transition:transform .45s ease,box-shadow .45s ease}.project:hover{transform:translateY(-8px);box-shadow:0 30px 60px #17171724}.project:after{content:"VIEW CASE STUDY ↗";position:absolute;right:25px;top:25px;border:1px solid #ffffff45;border-radius:999px;padding:9px 12px;font-size:9px;letter-spacing:1.4px;font-weight:900;opacity:0;transform:translateY(-8px);transition:.3s;z-index:3}.project:hover:after{opacity:1;transform:none}.project.two:after{border-color:#17171730}
+.service:after{content:"";height:3px;width:0;background:var(--lime);position:absolute;left:26px;bottom:0;transition:.35s}.service{position:relative;overflow:hidden}.service:hover:after{width:calc(100% - 52px)}
+.hero-copy strong{color:var(--ink)}
+.section-intro{max-width:720px}
+@media(max-width:560px){.project:after{display:none}}
 </style>
 </head>
-<body>
+<body><div class="cursor-glow" id="cursorGlow"></div>
 <div class="wrap">
 <header class="nav">
 <a class="brand" href="#">ATELIER NORTH<i></i></a>
@@ -49,13 +57,13 @@
 </div>
 <div class="hero-art reveal">
 <div class="art-top"><span>ATELIER / 2026</span><span class="pill">BUSINESS SYSTEM</span></div>
-<div class="floating"><small>INQUIRIES</small><strong>+42%</strong><span>↗ this month</span></div>
+<div class="floating"><small>PROJECT SIGNAL</small><strong>+42%</strong><span>↗ qualified enquiries</span></div><div style="position:absolute;left:25px;top:125px;border:1px solid #ffffff22;border-radius:999px;padding:8px 11px;font-size:9px;letter-spacing:1.4px;color:#aaa;z-index:4">SCROLL TO EXPLORE ↓</div>
 <div class="art-main"><div class="big">CLEAR<br>WINS.</div><p>Positioning, design and digital execution — brought together around the customer.</p></div>
 </div>
 </section>
 <div class="trustbar reveal"><div class="trustitem"><div class="trustlead">BUILT AROUND THE BUSINESS</div><span>Strategy → design → development → launch</span></div><div class="trustitem"><strong>6+</strong><span>core capabilities</span></div><div class="trustitem"><strong>100%</strong><span>responsive</span></div><div class="trustitem"><strong>24/7</strong><span>digital presence</span></div><div class="trustitem"><strong>1</strong><span>clear next step</span></div></div>
 <div class="marquee"><div class="track">STRATEGY <span>✳</span> DIGITAL DESIGN <span>✳</span> DEVELOPMENT <span>✳</span> BRAND EXPERIENCE <span>✳</span> STRATEGY <span>✳</span> DIGITAL DESIGN <span>✳</span> DEVELOPMENT <span>✳</span> BRAND EXPERIENCE <span>✳</span></div></div>
-
+<div style="display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:28px 0;color:#8a857c;font-size:11px;font-weight:950;letter-spacing:1.8px"><span>NORTHLINE</span><span>ARC / CO</span><span>MONOFORM</span><span>FIELDWORK</span><span>VANTA</span><span>ORBITAL</span></div>
 <section class="section" id="services">
 <div class="section-grid">
 <div><div class="label">01 / Capabilities</div></div>
@@ -128,6 +136,14 @@ document.querySelectorAll('[data-service]').forEach(a=>a.addEventListener('click
 document.getElementById('demoForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('name').value.trim();document.getElementById('message').textContent='Thanks '+name+' — your project brief has been captured in this demo.';e.target.reset()});
 const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('show')}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const glow=document.getElementById('cursorGlow');
+window.addEventListener('pointermove',e=>{if(glow){glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'}});
+document.querySelectorAll('.btn,.navcta,.service a,.project').forEach(el=>{
+ el.addEventListener('mouseenter',()=>{if(glow)glow.style.opacity='.9'});
+ el.addEventListener('mouseleave',()=>{if(glow)glow.style.opacity='.45'});
+});
+document.querySelectorAll('.service,.price,.testimonial,.member').forEach((card,i)=>{card.style.transitionDelay=(i%3)*70+'ms'});
 </script>
 </body>
 </html>
