@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHOP — Premium Online Store</title>
+<meta name="description" content="Professional e-commerce demo storefront">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar">⚡ Limited-time offers · Free delivery on orders over ₹999 <span>Track Order</span></div>
+
+<header class="header">
+  <a class="logo" href="#">SHOP<span>.</span></a>
+  <div class="location">📍 <div><small>Deliver to</small><b>India</b></div></div>
+  <label class="search"><select id="searchCategory"><option>All</option><option>Electronics</option><option>Home</option><option>Fashion</option><option>Wellness</option></select><input id="search" placeholder="Search products, brands and more"><button>⌕</button></label>
+  <div class="head-actions">
+    <button class="head-link" id="account">👤 <span>Account</span></button>
+    <button class="head-link" id="orders">▣ <span>Orders</span></button>
+    <button class="cart" id="openCart">🛒 <b id="count">0</b><span>Cart</span></button>
+  </div>
+</header>
+
+<nav class="nav">
+  <button class="all-btn" id="openCategories">☰ All Categories</button>
+  <a href="#shop">Today's Deals</a><a href="#shop">New Arrivals</a><a href="#shop">Best Sellers</a><a href="#shop">Electronics</a><a href="#shop">Home & Living</a><a href="#shop">Fashion</a><a href="#about">About</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-copy">
+    <span class="pill">NEW SEASON · 2026</span>
+    <h1>Everything you need.<br><em>Better chosen.</em></h1>
+    <p>Discover thoughtfully selected products, transparent pricing and a shopping experience built around you.</p>
+    <div class="hero-actions"><a href="#shop" class="primary">Explore collection →</a><a href="#deals" class="ghost">View deals</a></div>
+    <div class="trust"><span>✓ Secure checkout</span><span>✓ Easy returns</span><span>✓ Fast delivery</span></div>
+  </div>
+  <div class="hero-product">
+    <div class="glow"></div><div class="hero-device"><div class="device-screen">SHOP<br><small>NEW COLLECTION</small></div></div>
+    <div class="floating-card"><small>TOP RATED</small><b>Smart Audio Pro</b><strong>₹2,499</strong><span>★★★★★ 4.8</span></div>
+  </div>
+</section>
+
+<section class="categories" id="categories">
+  <div class="section-title"><div><small>SHOP BY CATEGORY</small><h2>Find your next favourite</h2></div></div>
+  <div class="cat-grid">
+    <button data-cat="Electronics"><i>⌁</i><b>Electronics</b><span>Smart tech & gadgets</span></button>
+    <button data-cat="Home"><i>⌂</i><b>Home & Living</b><span>Make space feel better</span></button>
+    <button data-cat="Fashion"><i>◒</i><b>Fashion</b><span>Everyday essentials</span></button>
+    <button data-cat="Wellness"><i>✦</i><b>Wellness</b><span>For better routines</span></button>
+  </div>
+</section>
+
+<section class="deals" id="deals">
+  <div><small>LIMITED TIME</small><h2>Deals worth discovering</h2><p>Fresh offers, updated for the demo storefront.</p></div>
+  <div class="deal-stats"><strong>30%</strong><span>up to discount</span><strong>24h</strong><span>deal window</span></div>
+</section>
+
+<section class="shop" id="shop">
+  <div class="shop-head">
+    <div><small>OUR COLLECTION</small><h2>Popular right now</h2><p id="resultText">Showing all products</p></div>
+    <div class="tools"><button id="filterBtn">☷ Filters</button><select id="sort"><option value="featured">Sort: Featured</option><option value="rating">Top rated</option><option value="low">Price: Low to High</option><option value="high">Price: High to Low</option></select></div>
+  </div>
+  <div class="layout">
+    <aside class="filters" id="filters">
+      <b>Filters</b>
+      <label>Category</label>
+      <button data-filter="All">All products</button><button data-filter="Electronics">Electronics</button><button data-filter="Home">Home & Living</button><button data-filter="Fashion">Fashion</button><button data-filter="Wellness">Wellness</button>
+      <label>Price</label>
+      <div class="price-inputs"><input id="minPrice" type="number" placeholder="Min"><input id="maxPrice" type="number" placeholder="Max"></div>
+      <label>Rating</label>
+      <button data-rating="4">★ 4 & above</button><button data-rating="3">★ 3 & above</button>
+      <button class="clear" id="clearFilters">Clear all</button>
+    </aside>
+    <div class="products" id="products"></div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div>🚚 <b>Fast delivery</b><span>Reliable shipping options</span></div>
+  <div>↩ <b>Easy returns</b><span>Simple return experience</span></div>
+  <div>🔒 <b>Secure payments</b><span>Protected checkout</span></div>
+  <div>♡ <b>Customer support</b><span>Here when you need us</span></div>
+</section>
+
+<section class="about" id="about"><small>ABOUT THE CONCEPT</small><h2>A professional marketplace-style demo, without copying anyone's brand.</h2><p>This concept borrows familiar e-commerce patterns such as strong search, category navigation, filters, ratings, offers, delivery information, wishlist, cart and checkout. The interface is original and ready to connect to a real backend.</p></section>
+
+<footer><div><a class="logo" href="#">SHOP<span>.</span></a><p>Modern commerce, thoughtfully designed.</p></div><div><b>Shop</b><a href="#shop">All products</a><a href="#deals">Deals</a><a href="#categories">Categories</a></div><div><b>Support</b><a>Help Center</a><a>Returns</a><a>Shipping</a></div><div><b>Newsletter</b><p>Get new drops & offers.</p><div class="newsletter"><input placeholder="Email address"><button>→</button></div></div></footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="cartDrawer"><div class="drawer-head"><h2>Your cart</h2><button id="closeCart">×</button></div><div id="cartItems" class="cart-items"></div><div class="cart-total"><div><span>Subtotal</span><b id="total">₹0</b></div><small>Taxes and delivery calculated at checkout.</small><button class="primary full" id="checkout">Proceed to checkout →</button></div></aside>
+
+<div class="modal" id="productModal"><button class="modal-x" id="closeModal">×</button><div id="modalBody"></div></div>
+
+<div class="account-modal" id="accountModal">
+  <button class="modal-x" id="closeAccount">×</button>
+  <div id="accountBody"></div>
+</div>
+
+<div class="orders-modal" id="ordersModal">
+  <button class="modal-x" id="closeOrders">×</button>
+  <div class="orders-head"><div><small>MY ACCOUNT</small><h2>My Orders</h2></div><button class="ghost-btn" id="ordersAccountBtn">Account</button></div>
+  <div id="ordersBody"></div>
+</div>
+
+<div class="checkout-modal" id="checkoutModal"><button class="modal-x" id="closeCheckout">×</button><div class="checkout-grid"><div><small>CHECKOUT</small><h2>Complete your order</h2><p class="muted">Demo checkout — no real payment is processed.</p><form id="checkoutForm"><input required placeholder="Full name"><input required type="email" placeholder="Email address"><input required placeholder="Delivery address"><div class="two"><input required placeholder="City"><input required placeholder="PIN code"></div><select required><option value="">Payment method</option><option>Cash on Delivery</option><option>UPI (Demo)</option><option>Card (Demo)</option></select><button class="primary full">Place demo order →</button></form></div><div class="order-summary"><b>Order summary</b><div id="checkoutSummary"></div></div></div></div>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
