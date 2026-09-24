@@ -230,3 +230,88 @@ document.head.appendChild(contactStyles);
 
 const currentYear = document.getElementById('currentYear');
 if (currentYear) currentYear.textContent = new Date().getFullYear();
+/* =========================
+   INTERACTION ENHANCEMENTS
+========================= */
+
+const nav = document.querySelector('.navbar');
+const navLinks = document.querySelector('.nav-links');
+
+if (nav && navLinks) {
+  const menuButton = document.createElement('button');
+  menuButton.type = 'button';
+  menuButton.className = 'mobile-menu-button';
+  menuButton.setAttribute('aria-label', 'Open navigation menu');
+  menuButton.setAttribute('aria-expanded', 'false');
+  menuButton.innerHTML = '<span></span><span></span><span></span>';
+
+  const menuStyles = document.createElement('style');
+  menuStyles.textContent = `
+    .mobile-menu-button{display:none;width:44px;height:42px;border:1px solid #34344c;background:#121224;border-radius:10px;padding:9px;cursor:pointer}
+    .mobile-menu-button span{display:block;height:2px;background:#fff;margin:5px 0;border-radius:4px;transition:.25s}
+    .nav-links.mobile-open{display:flex}
+    @media(max-width:900px){
+      .navbar{position:relative}
+      .mobile-menu-button{display:block}
+      .navbar>.nav-button{display:none}
+      .nav-links.mobile-open{position:absolute;top:70px;left:0;right:0;display:flex;flex-direction:column;gap:0;padding:10px;background:#111122;border:1px solid #292943;border-radius:14px;box-shadow:0 20px 45px #0008;z-index:20}
+      .nav-links.mobile-open a{padding:13px 14px;border-radius:9px}
+      .nav-links.mobile-open a:hover{background:#7357ff18}
+    }
+  `;
+  document.head.appendChild(menuStyles);
+  nav.insertBefore(menuButton, navLinks);
+
+  menuButton.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('mobile-open');
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('mobile-open');
+      menuButton.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+/* Service cards pre-select the requested service in the real contact form. */
+document.querySelectorAll('.service-card a[href="#contact"]').forEach(link => {
+  link.addEventListener('click', () => {
+    const title = link.closest('.service-card')?.querySelector('h3')?.textContent?.trim() || '';
+    const service = document.getElementById('service');
+    if (!service) return;
+    const map = {
+      'Web Development': 'Website',
+      'App Development': 'App',
+      'UI/UX Design': 'Design'
+    };
+    if (map[title]) service.value = map[title];
+  });
+});
+
+/* Pricing buttons also pre-select the closest matching service. */
+document.querySelectorAll('.pricing-card a[href="#contact"]').forEach(link => {
+  link.addEventListener('click', () => {
+    const title = link.closest('.pricing-card')?.querySelector('h3')?.textContent?.trim() || '';
+    const service = document.getElementById('service');
+    if (!service) return;
+    if (/app/i.test(title)) service.value = 'App';
+    else if (/design/i.test(title)) service.value = 'Design';
+    else if (/ai/i.test(title)) service.value = 'AI';
+    else service.value = 'Website';
+  });
+});
+
+/* Keep all internal page navigation smooth and accessible. */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', event => {
+    const targetId = link.getAttribute('href');
+    if (!targetId || targetId === '#') return;
+    const target = document.querySelector(targetId);
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
