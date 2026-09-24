@@ -1,13 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="0;url=../ecommerce.html">
-<title>SHOP. — Varoma Studios Demo</title>
-<script>location.replace("../ecommerce.html");</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <title>SHOP. — Premium E-commerce Demo | Varoma Studios</title>
+  <style>
+    :root{--bg:#080812;--panel:#14142a;--text:#f6f3ff;--muted:#aaa7c5;--accent:#9b7cff;--accent2:#57e6c1}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#29204d 0,#080812 45%);color:var(--text);font-family:Inter,Arial,sans-serif}a{text-decoration:none;color:inherit}.wrap{width:min(1120px,92%);margin:auto}.top{padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px}.logo{font-size:1.4rem;font-weight:800}.logo span{color:var(--accent2)}.back{color:var(--muted);font-size:.9rem}.hero{padding:72px 0 44px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}.eyebrow{color:var(--accent2);letter-spacing:2px;font-size:.75rem;font-weight:700}.hero h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.02;margin:18px 0}.hero h1 span{color:var(--accent)}.hero p{color:var(--muted);font-size:1.05rem;line-height:1.8}.btn{display:inline-block;margin-top:16px;padding:14px 20px;border-radius:999px;background:linear-gradient(100deg,var(--accent),#6e52dc);font-weight:700}.mock{background:linear-gradient(145deg,#29224c,#111126);border:1px solid #403568;border-radius:28px;padding:22px;box-shadow:0 25px 80px #0006}.mockbar{height:12px;width:65%;background:#4d4370;border-radius:20px;margin-bottom:25px}.product{background:#201d39;border-radius:20px;padding:24px}.product .orb{height:180px;border-radius:18px;background:radial-gradient(circle at 35% 30%,#b7fff0,#57e6c1 18%,#4b3d9e 55%,#211936);margin-bottom:20px}.price{font-size:1.7rem;font-weight:800;color:var(--accent2)}.section{padding:45px 0}.section h2{font-size:2rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#121225;border:1px solid #2c2847;border-radius:20px;padding:22px}.card h3{margin-top:0}.card p{color:var(--muted);line-height:1.6}.note{padding:18px;border:1px dashed #66568e;border-radius:16px;color:var(--muted);margin-top:28px}footer{padding:35px 0;color:var(--muted);font-size:.9rem;border-top:1px solid #28233e}@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:35px}.grid{grid-template-columns:1fr}.top{align-items:flex-start}.hero h1{font-size:3rem}}
+  
+.nav-actions{display:flex;gap:8px;align-items:center}.mini-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 12px;font-weight:800;cursor:pointer}.mini-btn:hover{background:#f3f2ff}
+.shop-overlay{position:fixed;inset:0;background:#0009;z-index:90;display:none}.shop-overlay.open{display:block}
+.shop-modal{position:fixed;z-index:91;left:50%;top:50%;transform:translate(-50%,-46%);opacity:0;pointer-events:none;width:min(760px,92%);max-height:88vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 30px 100px #10182855;transition:.2s}.shop-modal.open{opacity:1;transform:translate(-50%,-50%);pointer-events:auto}.shop-close{position:absolute;right:15px;top:10px;background:none;border:0;color:var(--ink);font-size:28px;cursor:pointer}
+.shop-modal h2{margin:4px 0 16px}.shop-muted{color:var(--muted);line-height:1.7}.shop-form{display:grid;gap:10px}.shop-form input,.shop-form select,.shop-form textarea{width:100%;height:44px;border:1px solid var(--line);border-radius:9px;padding:0 12px;color:var(--ink);background:#fff}.shop-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.shop-switch{text-align:center;color:var(--muted);font-size:12px}.shop-link{border:0;background:none;color:var(--brand);font-weight:800;cursor:pointer}.shop-profile{display:grid;grid-template-columns:180px 1fr;gap:22px}.shop-side{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:16px}.shop-avatar{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#635bff,#57e6c1);color:#fff;font-size:22px;font-weight:900;margin-bottom:10px}.shop-side small{color:var(--muted);font-size:10px}.shop-side button{width:100%;border:0;background:transparent;text-align:left;padding:9px;border-radius:7px;margin-top:7px;color:var(--muted);font-weight:700;cursor:pointer}.shop-side button:hover{background:#fff;color:var(--ink)}.shop-danger{color:#b42318!important}.shop-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.shop-stat{border:1px solid var(--line);border-radius:11px;padding:14px}.shop-stat small{display:block;color:var(--muted);font-size:9px}.shop-stat b{display:block;margin-top:5px}.shop-order{border:1px solid var(--line);border-radius:13px;padding:15px;margin-bottom:10px}.shop-order-top,.shop-order-bottom{display:flex;justify-content:space-between;gap:10px}.shop-order-top small{display:block;color:var(--muted);margin-top:4px}.shop-status{background:#e6f7ef;color:#067647;border-radius:99px;padding:5px 9px;font-size:9px;font-weight:900;height:max-content}.shop-order-lines{border-block:1px solid var(--line);margin:10px 0}.shop-order-line{display:flex;justify-content:space-between;padding:8px 0;font-size:11px}.shop-empty{text-align:center;padding:45px;color:var(--muted)}
+@media(max-width:760px){.nav-actions{width:100%;overflow:auto}.shop-profile{grid-template-columns:1fr}.shop-side{display:none}.shop-two{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-<p>Opening the latest SHOP demo… <a href="../ecommerce.html">Continue</a></p>
-</body>
+  <div class="wrap">
+    <header class="top"><a class="logo" href="../index.html">Varoma <span>Studios</span></a><a class="back" href="../index.html#portfolio">← Back to portfolio</a></header>
+    <main>
+      <section class="hero"><div><div class="eyebrow">DEMO CONCEPT · E-COMMERCE</div><h1>Shopping made <span>simple.</span></h1><p>NovaCart is a sample online-store concept demonstrating product discovery, clean layouts and conversion-focused design.</p><a class="btn" href="../index.html#contact">Request a similar website →</a></div><div class="mock"><div class="mockbar"></div><div class="product"><div class="orb"></div><h2>Everyday Essentials</h2><p>Minimal products. Thoughtful experiences.</p><div class="price">₹1,299</div></div></div></section>
+      <section class="section"><h2>Designed for growing brands</h2><div class="grid"><article class="card"><h3>Product Showcase</h3><p>Clear product presentation with strong visual hierarchy.</p></article><article class="card"><h3>Responsive Layout</h3><p>A flexible interface designed for mobile, tablet and desktop.</p></article><article class="card"><h3>Customer Journey</h3><p>Simple calls to action that guide visitors toward enquiries.</p></article></div><div class="note">This is a fictional demo concept created by Varoma Studios. It is not a live store and does not process payments.</div></section>
+    </main>
+    <footer>© 2026 Varoma Studios · Demo concept for presentation purposes.</footer>
+  </div>
+
+<script>
+(function(){
+  var overlay=document.createElement('div'); overlay.className='shop-overlay'; overlay.id='shopOverlay'; document.body.appendChild(overlay);
+  var modal=document.createElement('div'); modal.className='shop-modal'; modal.id='shopModal'; document.body.appendChild(modal);
+
+  var current=JSON.parse(localStorage.getItem('shopDemoUser')||'null');
+  var orders=JSON.parse(localStorage.getItem('shopDemoOrders')||'[]');
+  var cartData=JSON.parse(localStorage.getItem('shopDemoCart')||'[]');
+
+  function save(){localStorage.setItem('shopDemoUser',JSON.stringify(current));localStorage.setItem('shopDemoOrders',JSON.stringify(orders));localStorage.setItem('shopDemoCart',JSON.stringify(cartData))}
+  function money(n){return '₹'+Number(n).toLocaleString('en-IN')}
+  function openModal(html){modal.innerHTML='<button class="shop-close" id="shopClose">×</button>'+html;modal.classList.add('open');overlay.classList.add('open');document.getElementById('shopClose').onclick=closeModal}
+  function closeModal(){modal.classList.remove('open');overlay.classList.remove('open')}
+  overlay.onclick=closeModal;
+
+  function renderAccount(){
+    if(!current){
+      openModal('<div style="max-width:430px;margin:auto"><div class="eyebrow">MY ACCOUNT</div><h2>Welcome back</h2><p class="shop-muted">Sign in to manage your profile and orders.</p><form class="shop-form" id="shopLogin"><input id="shopEmail" type="email" required placeholder="Email address"><input id="shopPass" type="password" required placeholder="Password"><button class="btn primary">Sign in →</button></form><p class="shop-switch">New here? <button class="shop-link" id="shopRegister">Create an account</button></p></div>');
+      document.getElementById('shopLogin').onsubmit=function(e){e.preventDefault();var email=document.getElementById('shopEmail').value.trim().toLowerCase(),pass=document.getElementById('shopPass').value,users=JSON.parse(localStorage.getItem('shopDemoUsers')||'[]'),u=users.find(function(x){return x.email===email&&x.password===pass});if(!u){alert('Invalid email or password');return}current={id:u.id,name:u.name,email:u.email};save();renderAccount()};
+      document.getElementById('shopRegister').onclick=renderRegister; return;
+    }
+    var mine=orders.filter(function(o){return o.userId===current.id}),initials=current.name.split(' ').map(function(x){return x[0]}).slice(0,2).join('').toUpperCase();
+    openModal('<div class="shop-profile"><aside class="shop-side"><div class="shop-avatar">'+initials+'</div><b>'+current.name+'</b><small>'+current.email+'</small><button id="shopSideOrders">▣ My Orders ('+mine.length+')</button><button id="shopLogout" class="shop-danger">Sign out</button></aside><section><div class="eyebrow">ACCOUNT OVERVIEW</div><h2>Hello, '+current.name.split(' ')[0]+'</h2><p class="shop-muted">This demo account is stored in your browser. A production build can connect Firebase, Supabase or another backend.</p><div class="shop-stats"><div class="shop-stat"><small>NAME</small><b>'+current.name+'</b></div><div class="shop-stat"><small>EMAIL</small><b>'+current.email+'</b></div><div class="shop-stat"><small>TOTAL ORDERS</small><b>'+mine.length+'</b></div><div class="shop-stat"><small>CART ITEMS</small><b>'+cartData.reduce(function(a,x){return a+x.qty},0)+'</b></div></div><br><button class="btn primary" id="shopViewOrders">View my orders →</button></section></div>');
+    document.getElementById('shopLogout').onclick=function(){current=null;save();renderAccount()};
+    document.getElementById('shopSideOrders').onclick=renderOrders;document.getElementById('shopViewOrders').onclick=renderOrders;
+  }
+
+  function renderRegister(){
+    openModal('<div style="max-width:430px;margin:auto"><div class="eyebrow">CREATE ACCOUNT</div><h2>Join SHOP.</h2><p class="shop-muted">Create a demo customer account. It will remain on this browser.</p><form class="shop-form" id="shopRegisterForm"><input id="regName" required placeholder="Full name"><input id="regEmail" type="email" required placeholder="Email address"><input id="regPass" type="password" minlength="6" required placeholder="Password (6+ characters)"><button class="btn primary">Create account →</button></form><p class="shop-switch">Already registered? <button class="shop-link" id="shopLoginAgain">Sign in</button></p></div>');
+    document.getElementById('shopRegisterForm').onsubmit=function(e){e.preventDefault();var users=JSON.parse(localStorage.getItem('shopDemoUsers')||'[]'),name=document.getElementById('regName').value.trim(),email=document.getElementById('regEmail').value.trim().toLowerCase(),pass=document.getElementById('regPass').value;if(users.some(function(x){return x.email===email})){alert('Account already exists');return}var u={id:'u_'+Date.now(),name:name,email:email,password:pass};users.push(u);localStorage.setItem('shopDemoUsers',JSON.stringify(users));current={id:u.id,name:u.name,email:u.email};save();renderAccount()};
+    document.getElementById('shopLoginAgain').onclick=renderAccount;
+  }
+
+  function renderOrders(){
+    if(!current){renderAccount();setTimeout(function(){alert('Please sign in first')},100);return}
+    var mine=orders.filter(function(o){return o.userId===current.id});
+    var body=mine.length?mine.map(function(o){return '<div class="shop-order"><div class="shop-order-top"><div><b>'+o.id+'</b><small>'+o.date+'</small></div><span class="shop-status">'+o.status+'</span></div><div class="shop-order-lines">'+o.items.map(function(i){return '<div class="shop-order-line"><span>'+i.name+' × '+i.qty+'</span><b>'+money(i.price*i.qty)+'</b></div>'}).join('')+'</div><div class="shop-order-bottom"><span>'+o.payment+'</span><b>'+money(o.total)+'</b></div></div>'}).join(''):'<div class="shop-empty">You have no orders yet.<br><br><a class="btn primary" href="#shop" id="shopOrderShop">Start shopping →</a></div>';
+    openModal('<div class="shop-order-top"><div><div class="eyebrow">MY ACCOUNT</div><h2>My Orders</h2></div><button class="secondary" id="shopOrderAccount">Account</button></div>'+body);
+    var a=document.getElementById('shopOrderAccount');if(a)a.onclick=renderAccount;
+    var s=document.getElementById('shopOrderShop');if(s)s.onclick=closeModal;
+  }
+
+  function syncCart(){
+    localStorage.setItem('shopDemoCart',JSON.stringify(cartData));
+    var count=cartData.reduce(function(a,x){return a+x.qty},0);var c=document.getElementById('count');if(c)c.textContent=count;
+  }
+
+  window.add=function(name,price){
+    var found=cartData.find(function(x){return x.name===name});
+    if(found)found.qty++;else cartData.push({name:name,price:Number(price),qty:1});
+    syncCart(); if(typeof render==='function')render(); if(typeof window.render==='function')window.render();
+  };
+
+  function renderCartPanel(){
+    var list=document.getElementById('items'),total=cartData.reduce(function(a,x){return a+x.price*x.qty},0);
+    if(list)list.innerHTML=cartData.length?cartData.map(function(x,i){return '<li><strong>'+x.name+'</strong> × '+x.qty+' — '+money(x.price*x.qty)+' <button class="remove" onclick="shopQty('+i+',-1)">−</button><button class="remove" onclick="shopQty('+i+',1)">+</button><button class="remove" onclick="shopRemove('+i+')">Remove</button></li>'}).join(''):'<li>Your cart is empty.</li>';
+    var t=document.getElementById('total');if(t)t.textContent=total.toLocaleString('en-IN');
+    var c=document.getElementById('count');if(c)c.textContent=cartData.reduce(function(a,x){return a+x.qty},0);
+  }
+  window.shopQty=function(i,d){cartData[i].qty+=d;if(cartData[i].qty<=0)cartData.splice(i,1);syncCart();renderCartPanel()};
+  window.shopRemove=function(i){cartData.splice(i,1);syncCart();renderCartPanel()};
+  window.toggleCart=function(){var p=document.getElementById('panel');if(p)p.classList.toggle('open');renderCartPanel()};
+
+  function checkout(){
+    if(!cartData.length){alert('Your cart is empty');return}
+    if(!current){renderAccount();setTimeout(function(){alert('Sign in before placing an order')},100);return}
+    openModal('<div class="eyebrow">CHECKOUT</div><h2>Complete your order</h2><p class="shop-muted">Demo checkout — no real payment is processed.</p><form class="shop-form" id="shopCheckout"><input required placeholder="Full name" id="coName" value="'+current.name+'"><input required type="email" placeholder="Email" id="coEmail" value="'+current.email+'"><input required placeholder="Delivery address" id="coAddress"><div class="shop-two"><input required placeholder="City" id="coCity"><input required placeholder="PIN code" id="coPin"></div><select required id="coPayment"><option value="">Payment method</option><option>Cash on Delivery</option><option>UPI (Demo)</option><option>Card (Demo)</option></select><button class="btn primary">Place demo order →</button></form>');
+    document.getElementById('shopCheckout').onsubmit=function(e){e.preventDefault();var total=cartData.reduce(function(a,x){return a+x.price*x.qty},0);orders.unshift({id:'ORD-'+Math.random().toString(36).slice(2,8).toUpperCase(),userId:current.id,date:new Date().toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'}),status:'Confirmed',payment:document.getElementById('coPayment').value,total:total,items:cartData.map(function(x){return{name:x.name,price:x.price,qty:x.qty}})});cartData=[];save();syncCart();renderCartPanel();closeModal();alert('Order placed successfully ✓');renderOrders()};
+  }
+  var cb=document.querySelector('.checkout');if(cb){cb.removeAttribute('onclick');cb.onclick=checkout}
+
+  document.getElementById('shopAccount').onclick=renderAccount;document.getElementById('shopOrders').onclick=renderOrders;
+  renderCartPanel();
+})();
+</script></body>
 </html>
