@@ -36,6 +36,9 @@
 .hero-copy strong{color:var(--ink)}
 .section-intro{max-width:720px}
 @media(max-width:560px){.project:after{display:none}}
+
+.mini-card{z-index:5;background:#ffffff0d;border:1px solid #ffffff1c;border-radius:14px;padding:12px 14px;backdrop-filter:blur(12px);color:#fff;min-width:125px}.mini-card span{display:block;color:#aaa;font-size:8px;letter-spacing:1.2px}.mini-card b{display:block;font-size:23px;margin-top:4px}.mini-card.second{bottom:118px;top:auto}.hero-art .gridline{position:absolute;inset:70px 25px 35px;background:linear-gradient(#fff00009 1px,transparent 1px),linear-gradient(90deg,#fff00009 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,transparent,#000 20%,#000 80%,transparent)}.project-content .tag{display:inline-flex;border:1px solid #ffffff35;border-radius:999px;padding:7px 10px;font-size:9px;letter-spacing:1px;font-weight:900;margin-bottom:8px}.project.two .tag{border-color:#17171730}.case-modal{position:fixed;inset:0;background:#101010cc;backdrop-filter:blur(12px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}.case-modal.open{display:flex}.case-panel{width:min(760px,100%);background:var(--bg);color:var(--ink);border-radius:24px;padding:34px;position:relative;box-shadow:0 40px 100px #0008}.case-close{position:absolute;right:18px;top:18px;border:1px solid var(--line);background:transparent;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:20px}.case-panel .label{color:#777}.case-panel h3{font-size:48px;line-height:.95;letter-spacing:-3px;margin:12px 0}.case-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:25px 0}.case-meta div{background:var(--card);border:1px solid var(--line);padding:16px;border-radius:13px}.case-meta b{display:block;font-size:20px}.case-meta span{font-size:10px;color:#777}.case-panel p{color:var(--muted);line-height:1.7}.case-panel .btn{margin-top:12px}
+@media(max-width:560px){.mini-card.second{display:none}.case-meta{grid-template-columns:1fr}.case-panel{padding:25px}.case-panel h3{font-size:38px}}
 </style>
 </head>
 <body><div class="cursor-glow" id="cursorGlow"></div>
@@ -55,9 +58,11 @@
 <p class="hero-copy">A premium business website concept for companies that need more than a brochure — a clear digital presence that communicates value, builds trust and turns attention into conversations.</p>
 <div class="actions"><a class="btn dark" href="#contact">Start a project ↗</a><a class="btn light" href="#work">Explore the work ↓</a></div>
 </div>
-<div class="hero-art reveal">
+<div class="hero-art reveal"><div class="gridline"></div>
 <div class="art-top"><span>ATELIER / 2026</span><span class="pill">BUSINESS SYSTEM</span></div>
-<div class="floating"><small>PROJECT SIGNAL</small><strong>+42%</strong><span>↗ qualified enquiries</span></div><div style="position:absolute;left:25px;top:125px;border:1px solid #ffffff22;border-radius:999px;padding:8px 11px;font-size:9px;letter-spacing:1.4px;color:#aaa;z-index:4">SCROLL TO EXPLORE ↓</div>
+<div class="floating"><small>PROJECT SIGNAL</small><strong>+42%</strong><span>↗ qualified enquiries</span></div>
+<div class="mini-card" style="position:absolute;left:25px;top:125px"><span>ACTIVE PROJECTS</span><b>08</b></div>
+<div class="mini-card second" style="position:absolute;right:25px;bottom:130px"><span>CLIENT VALUE</span><b>↑ 2.8×</b></div>
 <div class="art-main"><div class="big">CLEAR<br>WINS.</div><p>Positioning, design and digital execution — brought together around the customer.</p></div>
 </div>
 </section>
@@ -87,10 +92,10 @@
 <section class="section" id="work">
 <div class="work-head"><div><div class="label">02 / Selected work</div><h2 class="section-title">Good work<br>should <em style="font-family:var(--serif);font-weight:400">show.</em></h2></div><p style="color:var(--muted);max-width:360px;line-height:1.7;font-size:14px">Fictional case studies for this demo. The visual language is intentionally editorial, spacious and conversion-focused.</p></div>
 <div class="work-grid">
-<article class="project one reveal"><div class="project-content"><small>CONSULTING / BRAND SYSTEM</small><h3>Turn expertise<br>into demand.</h3><p>A sharper digital story for a modern consulting business — with services, proof and a clear enquiry path.</p></div></article>
+<article class="project one reveal case-trigger" data-title="Northline Advisory" data-type="Consulting / Brand System" data-copy="A sharper digital story for a modern consulting business — structured around positioning, proof and a clear enquiry journey." data-result="2.8× clearer enquiry path"><div class="project-content"><span class="tag">OPEN CASE STUDY ↗</span><small>CONSULTING / BRAND SYSTEM</small><h3>Turn expertise<br>into demand.</h3><p>A sharper digital story for a modern consulting business — with services, proof and a clear enquiry path.</p></div></article>
 <div class="side">
-<article class="project small two reveal"><div class="project-content"><small>OPERATIONS / DIGITAL</small><h3>Make complex simple.</h3><p>A structured experience for a growing B2B company.</p></div></article>
-<article class="project small three reveal"><div class="project-content"><small>GROWTH / WEB</small><h3>Designed to move.</h3><p>A flexible system for campaigns, content and new offers.</p></div></article>
+<article class="project small two reveal case-trigger" data-title="Fieldwork Operations" data-type="Operations / Digital" data-copy="A structured experience that turns a complex B2B offer into a simple, confidence-building customer journey." data-result="+41% qualified enquiries"><div class="project-content"><span class="tag">OPEN CASE STUDY ↗</span><small>OPERATIONS / DIGITAL</small><h3>Make complex simple.</h3><p>A structured experience for a growing B2B company.</p></div></article>
+<article class="project small three reveal case-trigger" data-title="Vanta Growth" data-type="Growth / Web" data-copy="A flexible digital system for campaigns, content and new offers, designed to make every launch easier to manage." data-result="3.1× faster campaign launch"><div class="project-content"><span class="tag">OPEN CASE STUDY ↗</span><small>GROWTH / WEB</small><h3>Designed to move.</h3><p>A flexible system for campaigns, content and new offers.</p></div></article>
 </div>
 </div>
 </section>
@@ -144,6 +149,11 @@ document.querySelectorAll('.btn,.navcta,.service a,.project').forEach(el=>{
  el.addEventListener('mouseleave',()=>{if(glow)glow.style.opacity='.45'});
 });
 document.querySelectorAll('.service,.price,.testimonial,.member').forEach((card,i)=>{card.style.transitionDelay=(i%3)*70+'ms'});
+
+const caseModal=document.getElementById('caseModal'),caseTitle=document.getElementById('caseTitle'),caseType=document.getElementById('caseType'),caseCopy=document.getElementById('caseCopy'),caseResult=document.getElementById('caseResult'),caseClose=document.getElementById('caseClose');
+document.querySelectorAll('.case-trigger').forEach(card=>card.addEventListener('click',()=>{caseTitle.textContent=card.dataset.title;caseType.textContent=card.dataset.type;caseCopy.textContent=card.dataset.copy;caseResult.textContent=card.dataset.result;caseModal.classList.add('open');caseModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}));
+function closeCase(){caseModal.classList.remove('open');caseModal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+caseClose.addEventListener('click',closeCase);caseModal.addEventListener('click',e=>{if(e.target===caseModal)closeCase()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCase()});document.getElementById('caseCta').addEventListener('click',closeCase);
 </script>
-</body>
+<div class="case-modal" id="caseModal" aria-hidden="true"><div class="case-panel"><button class="case-close" id="caseClose" aria-label="Close case study">×</button><div class="label" id="caseType">CASE STUDY</div><h3 id="caseTitle">Project</h3><p id="caseCopy"></p><div class="case-meta"><div><b id="caseResult">—</b><span>PROJECT RESULT</span></div><div><b>Strategy</b><span>POSITIONING</span></div><div><b>Design + Build</b><span>DELIVERY</span></div></div><p>This interactive preview is part of the business demo. A production project would contain the complete case study, real metrics, screenshots and client-approved details.</p><a class="btn dark" href="#contact" id="caseCta">Discuss a similar project ↗</a></div></div></body>
 </html>
