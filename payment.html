@@ -52,7 +52,15 @@ async function init(){
  $("total").textContent=Number(quoteData.total).toFixed(2);
  const items=JSON.parse(quoteData.items_json||"[]");
  $("items").innerHTML=items.map(x=>'<div class="line"><span>'+esc(x.description)+' × '+Number(x.qty)+'</span><strong>₹'+(Number(x.qty)*Number(x.rate)).toFixed(2)+'</strong></div>').join("");
- const upi="upi://pay?pa=prakhar604@oksbi&pn=Varoma%20Studios&am="+encodeURIComponent(Number(quoteData.total).toFixed(2))+"&cu=INR";
+ const upiParams=new URLSearchParams({
+   pa:"prakhar604@oksbi",
+   pn:"Varoma Studios",
+   am:Number(quoteData.total).toFixed(2),
+   cu:"INR",
+   tr:String(quoteData.quote_number).replace(/[^A-Za-z0-9.-]/g,"").slice(0,35),
+   tn:("Varoma "+String(quoteData.quote_number)).slice(0,35)
+ });
+ const upi="upi://pay?"+upiParams.toString();
  $("upiBtn").href=upi;
  $("qr").src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data="+encodeURIComponent(upi);
  if(quoteData.payment_status==="Paid"){
