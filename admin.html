@@ -17,7 +17,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{m
 </div>
 
 <div id="app" class="hidden">
-<div class="card"><h1>Lead Management</h1><button class="secondary" id="refresh">Refresh Leads</button></div>
+<div class="card"><h1>Lead Management</h1><button class="secondary" id="refresh">Refresh Leads</button><button id="logout" style="margin-left:8px;background:#8b0000">Sign out</button></div>
 <div class="card"><h2>Customer Leads</h2><p class="muted">Select a customer lead below to create a quotation.</p><div id="leads"></div></div>
 
 <div id="quoteBox" class="card hidden">
@@ -72,20 +72,26 @@ body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{m
 </div>
 
 <script>
-let key="",lead=null;
+let lead=null;
 const $=id=>document.getElementById(id);
 
+async function logout(){
+  await fetch("/api/admin/logout",{method:"POST",credentials:"same-origin"});
+  location.reload();
+}
+
 $("loginBtn").onclick=async()=>{
-  const r=await fetch("/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:$("password").value})});
+  const r=await fetch("/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},credentials:"same-origin",body:JSON.stringify({password:$("password").value})});
   const d=await r.json();
   if(!d.success){$("loginMsg").textContent=d.message||"Login failed";$("loginMsg").className="error";return}
-  key=$("password").value;$("login").classList.add("hidden");$("app").classList.remove("hidden");load()
+$("login").classList.add("hidden");$("app").classList.remove("hidden");load()
 };
 
 $("refresh").onclick=load;
+$("logout").onclick=logout;
 
 async function load(){
-  const r=await fetch("/api/admin/leads",{headers:{Authorization:"Bearer "+key}});
+  const r=await fetch("/api/admin/leads",{credentials:"same-origin"});
   if(r.status===401){location.reload();return}
   const d=await r.json();
   $("leads").innerHTML="";
@@ -102,7 +108,7 @@ async function load(){
         pay.type="button";pay.textContent="Mark Paid";
         pay.onclick=async(ev)=>{
           ev.stopPropagation();
-          const r=await fetch("/api/admin/payment-status",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+key},body:JSON.stringify({quoteNumber:x.quote_number,status:"Paid"})});
+          const r=await fetch("/api/admin/payment-status",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({quoteNumber:x.quote_number,status:"Paid"})});
           const d=await r.json();alert(d.message||"Done");if(d.success)load();
         };
         actions.appendChild(pay);
@@ -117,7 +123,7 @@ async function load(){
       selectStatus.style.padding="9px";selectStatus.style.borderRadius="9px";selectStatus.style.border="1px solid #ccc";
       selectStatus.onchange=async(ev)=>{
         ev.stopPropagation();
-        const r=await fetch("/api/admin/project-status",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+key},body:JSON.stringify({quoteNumber:x.quote_number,status:selectStatus.value})});
+        const r=await fetch("/api/admin/project-status",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({quoteNumber:x.quote_number,status:selectStatus.value})});
         const d=await r.json();if(!d.success){alert(d.message||"Could not update status");load();}else{load();}
       };
       actions.appendChild(selectStatus);
