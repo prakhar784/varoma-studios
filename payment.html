@@ -21,7 +21,7 @@
 <div class="amount">₹<span id="total"></span></div>
 <p class="muted">Please pay the exact quotation amount using UPI.</p>
 <img id="qr" class="qr" alt="Varoma Studios UPI QR">
-<div class="upi">UPI ID: prakhar604@oksbi</div>
+<div class="upi">UPI ID: prakhara604@oksbi</div>
 <a id="upiBtn" class="btn" href="#">Open UPI App</a>
 <p class="muted" style="text-align:center">Or scan the QR code with any UPI app.</p>
 </div>
@@ -53,7 +53,7 @@ async function init(){
  const items=JSON.parse(quoteData.items_json||"[]");
  $("items").innerHTML=items.map(x=>'<div class="line"><span>'+esc(x.description)+' × '+Number(x.qty)+'</span><strong>₹'+(Number(x.qty)*Number(x.rate)).toFixed(2)+'</strong></div>').join("");
  const upiParams=new URLSearchParams({
-   pa:"prakhar604@oksbi",
+   pa:"prakhara604@oksbi",
    pn:"Varoma Studios",
    am:Number(quoteData.total).toFixed(2),
    cu:"INR",
