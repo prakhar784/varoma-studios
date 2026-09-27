@@ -7,5 +7,12 @@
     "directory": ".",
     "binding": "ASSETS",
     "run_worker_first": ["/api/*"]
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "VAROMA_DB",
+      "database_name": "varoma-leads",
+      "database_id": "1b916287-b03e-4c69-a6c2-6cc088a36631"
+    }
+  ]
 }
