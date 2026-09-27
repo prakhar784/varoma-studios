@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Track Your Project | Varoma Studios</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(135deg,#f6f7fb,#eef1f8);color:#111}.wrap{max-width:760px;margin:auto;padding:28px 16px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:22px;padding:24px;box-shadow:0 12px 35px rgba(0,0,0,.07);margin-bottom:18px}.brand{font-size:24px;font-weight:900}.muted{color:#666}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{font-weight:700;font-size:14px;display:block;margin-bottom:6px}input{width:100%;padding:12px;border:1px solid #ccc;border-radius:10px;font:inherit}button{width:100%;padding:13px;border:0;border-radius:11px;background:#111;color:#fff;font-weight:800;cursor:pointer;margin-top:12px}.error{color:#b42318;font-weight:700}.hidden{display:none}.quote{font-size:25px;font-weight:900}.progress{display:grid;gap:10px;margin-top:20px}.step{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:#f3f3f3;color:#777;font-weight:700}.dot{width:18px;height:18px;border-radius:50%;background:#ccc;flex:none}.step.active{background:#111;color:#fff}.step.active .dot{background:#fff}.step.done{background:#e9f7ef;color:#087a3d}.step.done .dot{background:#087a3d}.current{margin-top:18px;font-size:18px;font-weight:900}.updated{font-size:13px;color:#777;margin-top:5px}@media(max-width:600px){.grid{grid-template-columns:1fr}.card{padding:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="card">
+<div class="brand">Varoma Studios</div>
+<p class="muted">Customer Project Tracking</p>
+<div id="form">
+<div class="grid">
+<div><label for="quote">Quotation Number</label><input id="quote" placeholder="VS-2026-XXXXXXXX"></div>
+<div><label for="email">Customer Email</label><input id="email" type="email" placeholder="your@email.com"></div>
+</div>
+<button id="track">Track Project</button>
+<p id="formMsg"></p>
+</div>
+</div>
+
+<div id="result" class="card hidden">
+<div class="quote" id="quoteNo"></div>
+<p>Customer: <strong id="customer"></strong></p>
+<p class="current">Current Status: <span id="current"></span></p>
+<div class="updated" id="updated"></div>
+<div class="progress" id="progress"></div>
+</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const steps=["Payment Pending","Planning","Development","Testing","Delivered"];
+async function track(){
+ const quote=$("quote").value.trim(),email=$("email").value.trim();
+ if(!quote||!email){$("formMsg").textContent="Please enter both quotation number and email.";$("formMsg").className="error";return}
+ $("track").disabled=true;$("formMsg").textContent="Checking project status...";$("formMsg").className="";
+ const r=await fetch("/api/project/track?quote="+encodeURIComponent(quote)+"&email="+encodeURIComponent(email));
+ const d=await r.json();$("track").disabled=false;
+ if(!d.success){$("formMsg").textContent=d.message||"Project not found.";$("formMsg").className="error";$("result").classList.add("hidden");return}
+ $("formMsg").textContent="";$("result").classList.remove("hidden");
+ const p=d.project;$("quoteNo").textContent=p.quote_number;$("customer").textContent=p.customer_name;$("current").textContent=p.project_status||"Payment Pending";
+ $("updated").textContent=p.project_updated_at?"Last updated: "+new Date(p.project_updated_at.replace(" ","T")+"Z").toLocaleString():"";
+ const idx=steps.indexOf(p.project_status||"Payment Pending");
+ $("progress").innerHTML=steps.map((s,i)=>'<div class="step '+(i<idx?'done ': '')+(i===idx?'active':'')+'"><span class="dot"></span><span>'+s+'</span></div>').join("");
+}
+$("track").onclick=track;
+const q=new URLSearchParams(location.search).get("quote");if(q)$("quote").value=q;
+</script>
+</body>
+</html>
