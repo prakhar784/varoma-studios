@@ -197,7 +197,7 @@ export default {
               taxAmount,
               total,
               validityDays,
-              notes,
+              notes: notes + "\n\nPayment link: " + paymentUrl,
               paymentUrl
             })
           });
