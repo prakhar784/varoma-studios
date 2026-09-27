@@ -85,6 +85,16 @@ export default {
     }
 
 
+    if (url.pathname === "/api/admin/login") {
+      if (request.method !== "POST") return Response.json({ success: false, message: "Method not allowed." }, { status: 405 });
+      if (!env.ADMIN_PASSWORD) return Response.json({ success: false, message: "Admin password is not configured." }, { status: 503 });
+      const body = await request.json().catch(() => ({}));
+      if (String(body.password || "") !== env.ADMIN_PASSWORD) {
+        return Response.json({ success: false, message: "Invalid password." }, { status: 401 });
+      }
+      return Response.json({ success: true, message: "Signed in." });
+    }
+
     if (url.pathname === "/api/admin/leads") {
       if (!(await adminAuthorized(request, env))) return Response.json({ success: false, message: "Unauthorized." }, { status: 401 });
       await ensureQuotesTable(env.VAROMA_DB);
