@@ -174,6 +174,7 @@ export default {
       ).bind(quoteNumber, lead.id, lead.name, lead.email, lead.phone, JSON.stringify(cleanItems), subtotal, appliedDiscount, taxPercent, taxAmount, total, validityDays, notes).run();
 
       const quoteId = inserted.meta?.last_row_id ?? null;
+      const paymentUrl = new URL("/payment.html?quote=" + encodeURIComponent(quoteNumber), request.url).toString();
       let status = "Draft";
       let message = "Quotation saved as draft.";
 
@@ -196,7 +197,8 @@ export default {
               taxAmount,
               total,
               validityDays,
-              notes
+              notes,
+              paymentUrl
             })
           });
           const result = await response.json().catch(() => ({}));
@@ -212,7 +214,6 @@ export default {
       }
 
       await env.VAROMA_DB.prepare("UPDATE quotes SET status = ?, sent_at = CASE WHEN ? = 'Sent' THEN CURRENT_TIMESTAMP ELSE sent_at END WHERE id = ?").bind(status, status, quoteId).run();
-      const paymentUrl = new URL("/payment.html?quote=" + encodeURIComponent(quoteNumber), request.url).toString();
       return Response.json({ success: true, quoteId, quoteNumber, total, status, paymentUrl, message });
     }
 
