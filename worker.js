@@ -95,11 +95,46 @@ export default {
       return Response.json({ success: true, message: "Signed in." });
     }
 
+    if (url.pathname === "/api/payment/quote" && request.method === "GET") {
+      const quoteNumber = cleanParam(url.searchParams.get("quote"), 80);
+      if (!quoteNumber) return Response.json({ success: false, message: "Quote number is required." }, { status: 400 });
+      await ensureQuotesTable(env.VAROMA_DB);
+      const quote = await env.VAROMA_DB.prepare("SELECT quote_number,customer_name,customer_email,items_json,subtotal,discount,tax_percent,tax_amount,total,validity_days,notes,status,payment_status,payment_reference,payment_submitted_at FROM quotes WHERE quote_number = ?").bind(quoteNumber).first();
+      if (!quote) return Response.json({ success: false, message: "Quotation not found." }, { status: 404 });
+      return Response.json({ success: true, quote });
+    }
+
+    if (url.pathname === "/api/payment/submit" && request.method === "POST") {
+      const body = await request.json().catch(() => ({}));
+      const quoteNumber = cleanParam(body.quoteNumber, 80);
+      const reference = cleanParam(body.reference, 120);
+      if (!quoteNumber || !reference) return Response.json({ success: false, message: "Quote number and payment reference are required." }, { status: 400 });
+      await ensureQuotesTable(env.VAROMA_DB);
+      const quote = await env.VAROMA_DB.prepare("SELECT id,quote_number,payment_status FROM quotes WHERE quote_number = ?").bind(quoteNumber).first();
+      if (!quote) return Response.json({ success: false, message: "Quotation not found." }, { status: 404 });
+      if (quote.payment_status === "Paid") return Response.json({ success: false, message: "This quotation is already marked as paid." }, { status: 409 });
+      await env.VAROMA_DB.prepare("UPDATE quotes SET payment_status='Payment Submitted', payment_reference=?, payment_submitted_at=CURRENT_TIMESTAMP WHERE id=?").bind(reference, quote.id).run();
+      return Response.json({ success: true, message: "Payment reference submitted. Varoma Studios will verify the payment." });
+    }
+
     if (url.pathname === "/api/admin/leads") {
       if (!(await adminAuthorized(request, env))) return Response.json({ success: false, message: "Unauthorized." }, { status: 401 });
       await ensureQuotesTable(env.VAROMA_DB);
-      const result = await env.VAROMA_DB.prepare("SELECT l.*, q.quote_number, q.total AS quote_total, q.status AS quote_status FROM leads l LEFT JOIN quotes q ON q.id = (SELECT q2.id FROM quotes q2 WHERE q2.lead_id = l.id ORDER BY q2.id DESC LIMIT 1) ORDER BY l.id DESC LIMIT 100").all();
+      const result = await env.VAROMA_DB.prepare("SELECT l.*, q.quote_number, q.total AS quote_total, q.status AS quote_status, q.payment_status, q.payment_reference, q.payment_submitted_at, q.paid_at FROM leads l LEFT JOIN quotes q ON q.id = (SELECT q2.id FROM quotes q2 WHERE q2.lead_id = l.id ORDER BY q2.id DESC LIMIT 1) ORDER BY l.id DESC LIMIT 100").all();
       return Response.json({ success: true, leads: result.results || [] });
+    }
+
+    if (url.pathname === "/api/admin/payment-status") {
+      if (request.method !== "POST") return Response.json({ success: false, message: "Method not allowed." }, { status: 405 });
+      if (!(await adminAuthorized(request, env))) return Response.json({ success: false, message: "Unauthorized." }, { status: 401 });
+      const body = await request.json().catch(() => ({}));
+      const quoteNumber = cleanParam(body.quoteNumber, 80);
+      const paymentStatus = ["Pending", "Payment Submitted", "Paid"].includes(body.status) ? body.status : null;
+      if (!quoteNumber || !paymentStatus) return Response.json({ success: false, message: "Quote number and valid payment status are required." }, { status: 400 });
+      await ensureQuotesTable(env.VAROMA_DB);
+      const result = await env.VAROMA_DB.prepare("UPDATE quotes SET payment_status=?, paid_at=CASE WHEN ?='Paid' THEN CURRENT_TIMESTAMP ELSE paid_at END WHERE quote_number=?").bind(paymentStatus, paymentStatus, quoteNumber).run();
+      if (!result.meta?.changes) return Response.json({ success: false, message: "Quotation not found." }, { status: 404 });
+      return Response.json({ success: true, message: "Payment status updated." });
     }
 
     if (url.pathname === "/api/admin/quote") {
@@ -177,7 +212,8 @@ export default {
       }
 
       await env.VAROMA_DB.prepare("UPDATE quotes SET status = ?, sent_at = CASE WHEN ? = 'Sent' THEN CURRENT_TIMESTAMP ELSE sent_at END WHERE id = ?").bind(status, status, quoteId).run();
-      return Response.json({ success: true, quoteId, quoteNumber, total, status, message });
+      const paymentUrl = new URL("/payment.html?quote=" + encodeURIComponent(quoteNumber), request.url).toString();
+      return Response.json({ success: true, quoteId, quoteNumber, total, status, paymentUrl, message });
     }
 
     return env.ASSETS.fetch(request);
@@ -190,5 +226,17 @@ async function adminAuthorized(request, env) {
 }
 
 async function ensureQuotesTable(db) {
-  await db.prepare("CREATE TABLE IF NOT EXISTS quotes (id INTEGER PRIMARY KEY AUTOINCREMENT, quote_number TEXT NOT NULL UNIQUE, lead_id INTEGER NOT NULL, customer_name TEXT NOT NULL, customer_email TEXT NOT NULL, customer_phone TEXT NOT NULL, items_json TEXT NOT NULL, subtotal REAL NOT NULL, discount REAL NOT NULL DEFAULT 0, tax_percent REAL NOT NULL DEFAULT 0, tax_amount REAL NOT NULL DEFAULT 0, total REAL NOT NULL, validity_days INTEGER NOT NULL DEFAULT 7, notes TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'Draft', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, sent_at TEXT)").run();
+  await db.prepare("CREATE TABLE IF NOT EXISTS quotes (id INTEGER PRIMARY KEY AUTOINCREMENT, quote_number TEXT NOT NULL UNIQUE, lead_id INTEGER NOT NULL, customer_name TEXT NOT NULL, customer_email TEXT NOT NULL, customer_phone TEXT NOT NULL, items_json TEXT NOT NULL, subtotal REAL NOT NULL, discount REAL NOT NULL DEFAULT 0, tax_percent REAL NOT NULL DEFAULT 0, tax_amount REAL NOT NULL DEFAULT 0, total REAL NOT NULL, validity_days INTEGER NOT NULL DEFAULT 7, notes TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'Draft', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, sent_at TEXT, payment_status TEXT NOT NULL DEFAULT 'Pending', payment_reference TEXT, payment_submitted_at TEXT, paid_at TEXT)").run();
+  for (const sql of [
+    "ALTER TABLE quotes ADD COLUMN payment_status TEXT NOT NULL DEFAULT 'Pending'",
+    "ALTER TABLE quotes ADD COLUMN payment_reference TEXT",
+    "ALTER TABLE quotes ADD COLUMN payment_submitted_at TEXT",
+    "ALTER TABLE quotes ADD COLUMN paid_at TEXT"
+  ]) {
+    try { await db.prepare(sql).run(); } catch (_) {}
+  }
+}
+
+function cleanParam(v, max) {
+  return String(v || "").trim().slice(0, max);
 }
