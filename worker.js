@@ -221,43 +221,49 @@ export default {
       let message = "Quotation saved as draft.";
 
       if (env.GMAIL_WEBHOOK_URL && env.GMAIL_WEBHOOK_SECRET) {
-        try {
-          const response = await fetch(env.GMAIL_WEBHOOK_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              type: "quote",
-              secret: env.GMAIL_WEBHOOK_SECRET,
-              quoteId,
-              quoteNumber,
-              customer: { name: lead.name, email: lead.email, phone: lead.phone },
-              items: cleanItems,
-              subtotal,
-              discount: appliedDiscount,
-              discountPercent,
-              taxPercent,
-              taxAmount,
-              total,
-              validityDays,
-              notes: notes + "\n\nPayment link: " + paymentUrl + "\nProject tracking: " + trackingUrl,
-              paymentUrl,
-              trackingUrl
-            })
-          });
+        const notifyQuote = fetch(env.GMAIL_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "quote",
+            secret: env.GMAIL_WEBHOOK_SECRET,
+            quoteId,
+            quoteNumber,
+            customer: { name: lead.name, email: lead.email, phone: lead.phone },
+            items: cleanItems,
+            subtotal,
+            discount: appliedDiscount,
+            discountPercent,
+            taxPercent,
+            taxAmount,
+            total,
+            validityDays,
+            notes: notes + "\n\nPayment link: " + paymentUrl + "\nProject tracking: " + trackingUrl,
+            paymentUrl,
+            trackingUrl
+          })
+        }).then(async response => {
           const result = await response.json().catch(() => ({}));
           if (response.ok && result.success) {
-            status = "Sent";
-            message = "Quotation created and emailed to the customer.";
+            await env.VAROMA_DB.prepare("UPDATE quotes SET status='Sent', sent_at=CURRENT_TIMESTAMP WHERE id=?").bind(quoteId).run();
           } else {
             console.error("Quote email failed:", response.status, result);
           }
-        } catch (error) {
+        }).catch(error => {
           console.error("Quote email error:", error);
-        }
+        });
+        ctx.waitUntil(notifyQuote);
       }
 
-      await env.VAROMA_DB.prepare("UPDATE quotes SET status = ?, sent_at = CASE WHEN ? = 'Sent' THEN CURRENT_TIMESTAMP ELSE sent_at END WHERE id = ?").bind(status, status, quoteId).run();
-      return Response.json({ success: true, quoteId, quoteNumber, total, status, paymentUrl, message });
+      return Response.json({
+        success: true,
+        quoteId,
+        quoteNumber,
+        total,
+        status: "Draft",
+        paymentUrl,
+        message: "Quotation created successfully. Email notification is being processed."
+      });
     }
 
     return env.ASSETS.fetch(request);
