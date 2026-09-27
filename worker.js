@@ -1,5 +1,5 @@
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/submit") {
@@ -43,9 +43,43 @@ export default {
         "INSERT INTO leads (name, email, phone, service, budget, contact_preference, message) VALUES (?, ?, ?, ?, ?, ?, ?)"
       ).bind(name, email, phone, service, budget, contactPreference, message).run();
 
+      const leadId = result.meta?.last_row_id ?? null;
+
+      // D1 is the source of truth. Email notification is best-effort.
+      // The webhook URL and secret are Cloudflare runtime secrets, not stored in GitHub.
+      if (env.GMAIL_WEBHOOK_URL && env.GMAIL_WEBHOOK_SECRET) {
+        const notify = fetch(env.GMAIL_WEBHOOK_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            secret: env.GMAIL_WEBHOOK_SECRET,
+            leadId,
+            name,
+            email,
+            phone,
+            service,
+            budget,
+            contactPreference,
+            message
+          })
+        }).then(async (response) => {
+          if (!response.ok) {
+            console.error("Gmail notification failed:", response.status, await response.text());
+          }
+        }).catch((error) => {
+          console.error("Gmail notification error:", error);
+        });
+
+        ctx.waitUntil(notify);
+      } else {
+        console.warn("Gmail notification is not configured yet.");
+      }
+
       return Response.json({
         success: true,
-        leadId: result.meta?.last_row_id ?? null,
+        leadId,
         message: "Thank you! Your inquiry has been received."
       });
     }
