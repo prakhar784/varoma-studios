@@ -92,7 +92,13 @@ export default {
       if (String(body.password || "") !== env.ADMIN_PASSWORD) {
         return Response.json({ success: false, message: "Invalid password." }, { status: 401 });
       }
-      return Response.json({ success: true, message: "Signed in." });
+      const session = await createAdminSession(env.ADMIN_PASSWORD);
+      return new Response(JSON.stringify({ success: true, message: "Signed in." }), {
+        headers: {
+          "Content-Type": "application/json",
+          "Set-Cookie": adminCookie(session)
+        }
+      });
     }
 
     if (url.pathname === "/api/project/track" && request.method === "GET") {
@@ -248,8 +254,42 @@ export default {
 };
 
 async function adminAuthorized(request, env) {
-  const header = request.headers.get("Authorization") || "";
-  return !!env.ADMIN_PASSWORD && header === "Bearer " + env.ADMIN_PASSWORD;
+  if (!env.ADMIN_PASSWORD) return false;
+  const cookie = request.headers.get("Cookie") || "";
+  const match = cookie.match(/(?:^|;\\s*)varoma_admin=([^;]+)/);
+  if (!match) return false;
+  return verifyAdminSession(decodeURIComponent(match[1]), env.ADMIN_PASSWORD);
+}
+
+async function createAdminSession(password) {
+  const expires = Math.floor(Date.now() / 1000) + 8 * 60 * 60;
+  const payload = String(expires);
+  const signature = await signSession(payload, password);
+  return payload + "." + signature;
+}
+
+async function verifyAdminSession(token, password) {
+  const parts = String(token || "").split(".");
+  if (parts.length !== 2) return false;
+  const expires = Number(parts[0]);
+  if (!Number.isFinite(expires) || expires < Math.floor(Date.now() / 1000)) return false;
+  return (await signSession(parts[0], password)) === parts[1];
+}
+
+async function signSession(payload, secret) {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const signature = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payload));
+  return [...new Uint8Array(signature)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+function adminCookie(value) {
+  return "varoma_admin=" + encodeURIComponent(value) + "; Path=/; Max-Age=28800; HttpOnly; Secure; SameSite=Strict";
 }
 
 async function ensureQuotesTable(db) {
