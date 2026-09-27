@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Varoma Studios Admin</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{max-width:1100px;margin:auto;padding:24px}.card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px;margin:16px 0}input,textarea,button{font:inherit}input,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;box-sizing:border-box}button{padding:10px 15px;border:0;border-radius:9px;background:#111;color:#fff;font-weight:700;cursor:pointer}.secondary{background:#eee;color:#111}.lead{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;cursor:pointer}.lead:hover{background:#fafafa}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.item{display:grid;grid-template-columns:2fr .7fr 1fr auto;gap:8px;margin:8px 0}.muted{color:#666}.hidden{display:none}.total{font-size:22px;font-weight:800;margin-top:15px}@media(max-width:700px){.grid,.item{grid-template-columns:1fr}}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{max-width:1100px;margin:auto;padding:24px}.card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px;margin:16px 0}input,textarea,button{font:inherit}input,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;box-sizing:border-box}button{padding:10px 15px;border:0;border-radius:9px;background:#111;color:#fff;font-weight:700;cursor:pointer}.secondary{background:#eee;color:#111}.lead{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;cursor:pointer}.lead:hover{background:#fafafa}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.item-head{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin-top:18px;color:#555;font-size:13px;font-weight:700}.item{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin:6px 0}.item button{padding:10px;background:#111}.field-help{font-size:12px;color:#777;margin:5px 0 0}.label{font-weight:700;display:block;margin-bottom:6px}.muted{color:#666}.hidden{display:none}.total-box{margin-top:18px;padding:16px;background:#f7f7f7;border-radius:12px}.summary-row{display:flex;justify-content:space-between;margin:7px 0;color:#444}.total{font-size:24px;font-weight:800;margin-top:12px;padding-top:12px;border-top:1px solid #ddd}.section-title{margin-bottom:4px}.customer-box{margin:12px 0 4px;padding:12px;background:#f7f7f7;border-radius:10px}.status{margin-top:12px;font-weight:700}.success{color:#087a3d}.error{color:#b42318}@media(max-width:700px){.grid,.item-head,.item{grid-template-columns:1fr}.item-head{display:none}.item{padding:12px;background:#fafafa;border-radius:10px}.item button{width:100%}.wrap{padding:12px}}
 </style>
 </head>
 <body>
@@ -18,35 +18,161 @@ body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{m
 
 <div id="app" class="hidden">
 <div class="card"><h1>Lead Management</h1><button class="secondary" id="refresh">Refresh Leads</button></div>
-<div class="card"><h2>Customer Leads</h2><div id="leads"></div></div>
+<div class="card"><h2>Customer Leads</h2><p class="muted">Select a customer lead below to create a quotation.</p><div id="leads"></div></div>
+
 <div id="quoteBox" class="card hidden">
-<h2>Create Quotation</h2><p id="customer" class="muted"></p>
-<div id="items"></div><button class="secondary" id="add">+ Add Item</button>
-<div class="grid" style="margin-top:16px">
-<div><label>Discount (₹)</label><input id="discount" type="number" min="0" value="0"></div>
-<div><label>GST / Tax (%)</label><input id="tax" type="number" min="0" max="100" value="0"></div>
-<div><label>Valid for (days)</label><input id="days" type="number" min="1" value="7"></div>
-<div><label>Notes / Terms</label><textarea id="notes" placeholder="Payment terms, revisions, domain/hosting..."></textarea></div>
+<h2 class="section-title">Create Quotation</h2>
+<p class="muted">Add each service/product that you are charging the customer for.</p>
+<div class="customer-box"><strong>Customer:</strong> <span id="customer"></span></div>
+
+<div class="item-head">
+<div>Service / Description</div>
+<div>Quantity</div>
+<div>Rate per Unit (₹)</div>
+<div></div>
 </div>
-<p>Subtotal: ₹<span id="subtotal">0.00</span></p><p>Tax: ₹<span id="taxAmount">0.00</span></p>
+<div id="items"></div>
+<button class="secondary" id="add">+ Add Another Item</button>
+<p class="field-help">Example: Business Website Development · Qty 1 · Rate ₹14,999</p>
+
+<div class="grid" style="margin-top:20px">
+<div>
+<label class="label" for="discount">Discount (₹)</label>
+<input id="discount" type="number" min="0" value="0">
+<p class="field-help">Enter 0 if there is no discount.</p>
+</div>
+<div>
+<label class="label" for="tax">GST / Tax (%)</label>
+<input id="tax" type="number" min="0" max="100" value="0">
+<p class="field-help">Enter 0 if you are not adding tax.</p>
+</div>
+<div>
+<label class="label" for="days">Quotation Validity (days)</label>
+<input id="days" type="number" min="1" value="7">
+<p class="field-help">Example: 7 means the quote is valid for 7 days.</p>
+</div>
+<div>
+<label class="label" for="notes">Notes / Terms</label>
+<textarea id="notes" placeholder="Payment terms, revisions, domain/hosting..."></textarea>
+<p class="field-help">Add important project conditions for the customer.</p>
+</div>
+</div>
+
+<div class="total-box">
+<div class="summary-row"><span>Subtotal</span><strong>₹<span id="subtotal">0.00</span></strong></div>
+<div class="summary-row"><span>Discount</span><strong>− ₹<span id="discountAmount">0.00</span></strong></div>
+<div class="summary-row"><span>Tax</span><strong>₹<span id="taxAmount">0.00</span></strong></div>
 <div class="total">Total: ₹<span id="total">0.00</span></div>
-<button id="send" style="margin-top:15px">Create & Email Quotation</button><p id="msg"></p>
+</div>
+
+<button id="send" style="margin-top:15px">Create & Email Quotation</button>
+<p id="msg" class="status"></p>
 </div>
 </div>
 </div>
+
 <script>
 let key="",lead=null;
 const $=id=>document.getElementById(id);
-$("loginBtn").onclick=async()=>{const r=await fetch("/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:$("password").value})});const d=await r.json();if(!d.success){$("loginMsg").textContent=d.message||"Login failed";return}key=$("password").value;$("login").classList.add("hidden");$("app").classList.remove("hidden");load()};
+
+$("loginBtn").onclick=async()=>{
+  const r=await fetch("/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:$("password").value})});
+  const d=await r.json();
+  if(!d.success){$("loginMsg").textContent=d.message||"Login failed";$("loginMsg").className="error";return}
+  key=$("password").value;$("login").classList.add("hidden");$("app").classList.remove("hidden");load()
+};
+
 $("refresh").onclick=load;
-async function load(){const r=await fetch("/api/admin/leads",{headers:{Authorization:"Bearer "+key}});if(r.status===401){location.reload();return}const d=await r.json();$("leads").innerHTML="";(d.leads||[]).forEach(x=>{const e=document.createElement("div");e.className="lead";e.innerHTML="<b>#"+x.id+" — "+esc(x.name)+"</b><br><span class='muted'>"+esc(x.service)+" · "+esc(x.email)+" · "+esc(x.phone)+"</span><br>"+esc(x.message)+(x.quote_number?"<br><span class='muted'>Quote: "+esc(x.quote_number)+" · ₹"+Number(x.quote_total||0).toFixed(2)+" · "+esc(x.quote_status||"")+"</span>":"");e.onclick=()=>select(x);$("leads").appendChild(e)})}
-function select(x){lead=x;$("quoteBox").classList.remove("hidden");$("customer").textContent=x.name+" · "+x.email+" · "+x.phone+" · "+x.service;$("items").innerHTML="";addItem();$("msg").textContent="";scrollTo({top:$("quoteBox").offsetTop,behavior:"smooth"})}
-function addItem(){const d=document.createElement("div");d.className="item";d.innerHTML='<input class="desc" placeholder="Website development"><input class="qty" type="number" min="0.01" value="1"><input class="rate" type="number" min="0" value="0"><button type="button">×</button>';d.querySelectorAll("input").forEach(x=>x.oninput=totals);d.querySelector("button").onclick=()=>{d.remove();totals()};$("items").appendChild(d);totals()}
-$("add").onclick=addItem;["discount","tax"].forEach(id=>$(id).oninput=totals);
-function dataItems(){return [...document.querySelectorAll(".item")].map(r=>({description:r.querySelector(".desc").value.trim(),qty:Number(r.querySelector(".qty").value)||0,rate:Number(r.querySelector(".rate").value)||0})).filter(x=>x.description&&x.qty>0)}
-function totals(){const s=dataItems().reduce((a,x)=>a+x.qty*x.rate,0),disc=Math.min(Number($("discount").value)||0,s),tax=Math.max(0,(s-disc)*(Number($("tax").value)||0)/100);$("subtotal").textContent=s.toFixed(2);$("taxAmount").textContent=tax.toFixed(2);$("total").textContent=(s-disc+tax).toFixed(2)}
-$("send").onclick=async()=>{const items=dataItems();if(!lead||!items.length){$("msg").textContent="Add at least one item.";return}$("send").disabled=true;$("msg").textContent="Creating quotation...";const r=await fetch("/api/admin/quote",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+key},body:JSON.stringify({leadId:lead.id,items,discount:Number($("discount").value)||0,taxPercent:Number($("tax").value)||0,validityDays:Number($("days").value)||7,notes:$("notes").value})});const d=await r.json();$("msg").textContent=d.message||"Done";$("send").disabled=false;if(d.success)load()};
-function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
+
+async function load(){
+  const r=await fetch("/api/admin/leads",{headers:{Authorization:"Bearer "+key}});
+  if(r.status===401){location.reload();return}
+  const d=await r.json();
+  $("leads").innerHTML="";
+  if(!(d.leads||[]).length){$("leads").innerHTML="<p class='muted'>No customer leads found.</p>";return}
+  (d.leads||[]).forEach(x=>{
+    const e=document.createElement("div");
+    e.className="lead";
+    e.innerHTML="<b>#"+x.id+" — "+esc(x.name)+"</b><br><span class='muted'>"+esc(x.service)+" · "+esc(x.email)+" · "+esc(x.phone)+"</span><br>"+esc(x.message)+(x.quote_number?"<br><span class='muted'>Quote: "+esc(x.quote_number)+" · ₹"+Number(x.quote_total||0).toFixed(2)+" · "+esc(x.quote_status||"")+"</span>":"");
+    e.onclick=()=>select(x);
+    $("leads").appendChild(e)
+  })
+}
+
+function select(x){
+  lead=x;
+  $("quoteBox").classList.remove("hidden");
+  $("customer").textContent=x.name+" · "+x.email+" · "+x.phone+" · "+x.service;
+  $("items").innerHTML="";
+  $("discount").value=0;
+  $("tax").value=0;
+  $("days").value=7;
+  $("notes").value="";
+  addItem();
+  $("msg").textContent="";
+  $("msg").className="status";
+  scrollTo({top:$("quoteBox").offsetTop,behavior:"smooth"})
+}
+
+function addItem(){
+  const d=document.createElement("div");
+  d.className="item";
+  d.innerHTML='<input class="desc" placeholder="e.g. Business Website Development"><input class="qty" type="number" min="0.01" value="1" aria-label="Quantity"><input class="rate" type="number" min="0" value="0" aria-label="Rate per unit"><button type="button" aria-label="Remove item">×</button>';
+  d.querySelectorAll("input").forEach(x=>x.oninput=totals);
+  d.querySelector("button").onclick=()=>{d.remove();totals()};
+  $("items").appendChild(d);
+  totals()
+}
+
+$("add").onclick=addItem;
+["discount","tax"].forEach(id=>$ (id).oninput=totals);
+
+function dataItems(){
+  return [...document.querySelectorAll(".item")].map(r=>({
+    description:r.querySelector(".desc").value.trim(),
+    qty:Number(r.querySelector(".qty").value)||0,
+    rate:Number(r.querySelector(".rate").value)||0
+  })).filter(x=>x.description&&x.qty>0)
+}
+
+function totals(){
+  const s=dataItems().reduce((a,x)=>a+x.qty*x.rate,0);
+  const disc=Math.min(Number($("discount").value)||0,s);
+  const tax=Math.max(0,(s-disc)*(Number($("tax").value)||0)/100);
+  $("subtotal").textContent=s.toFixed(2);
+  $("discountAmount").textContent=disc.toFixed(2);
+  $("taxAmount").textContent=tax.toFixed(2);
+  $("total").textContent=(s-disc+tax).toFixed(2)
+}
+
+$("send").onclick=async()=>{
+  const items=dataItems();
+  if(!lead||!items.length){$("msg").textContent="Please add at least one service with a valid rate.";$("msg").className="status error";return}
+  $("send").disabled=true;
+  $("msg").textContent="Creating quotation...";
+  $("msg").className="status";
+  const r=await fetch("/api/admin/quote",{
+    method:"POST",
+    headers:{"Content-Type":"application/json",Authorization:"Bearer "+key},
+    body:JSON.stringify({
+      leadId:lead.id,
+      items,
+      discount:Number($("discount").value)||0,
+      taxPercent:Number($("tax").value)||0,
+      validityDays:Number($("days").value)||7,
+      notes:$("notes").value
+    })
+  });
+  const d=await r.json();
+  $("msg").textContent=d.message||"Done";
+  $("msg").className="status "+(d.success?"success":"error");
+  $("send").disabled=false;
+  if(d.success)load()
+};
+
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))
+}
 </script>
 </body>
 </html>
