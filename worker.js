@@ -101,6 +101,17 @@ export default {
       });
     }
 
+
+    if (url.pathname === "/api/admin/logout") {
+      if (request.method !== "POST") return Response.json({ success: false, message: "Method not allowed." }, { status: 405 });
+      return new Response(JSON.stringify({ success: true, message: "Signed out." }), {
+        headers: {
+          "Content-Type": "application/json",
+          "Set-Cookie": adminLogoutCookie()
+        }
+      });
+    }
+
     if (url.pathname === "/api/project/track" && request.method === "GET") {
       const quoteNumber = cleanParam(url.searchParams.get("quote"), 80);
       const email = cleanParam(url.searchParams.get("email"), 160).toLowerCase();
@@ -290,6 +301,10 @@ async function signSession(payload, secret) {
 
 function adminCookie(value) {
   return "varoma_admin=" + encodeURIComponent(value) + "; Path=/; Max-Age=28800; HttpOnly; Secure; SameSite=Strict";
+}
+
+function adminLogoutCookie() {
+  return "varoma_admin=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Strict";
 }
 
 async function ensureQuotesTable(db) {
