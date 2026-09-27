@@ -93,7 +93,17 @@ async function load(){
   (d.leads||[]).forEach(x=>{
     const e=document.createElement("div");
     e.className="lead";
-    e.innerHTML="<b>#"+x.id+" — "+esc(x.name)+"</b><br><span class='muted'>"+esc(x.service)+" · "+esc(x.email)+" · "+esc(x.phone)+"</span><br>"+esc(x.message)+(x.quote_number?"<br><span class='muted'>Quote: "+esc(x.quote_number)+" · ₹"+Number(x.quote_total||0).toFixed(2)+" · "+esc(x.quote_status||"")+"</span>":"");
+    e.innerHTML="<b>#"+x.id+" — "+esc(x.name)+"</b><br><span class='muted'>"+esc(x.service)+" · "+esc(x.email)+" · "+esc(x.phone)+"</span><br>"+esc(x.message)+(x.quote_number?"<br><span class='muted'>Quote: "+esc(x.quote_number)+" · ₹"+Number(x.quote_total||0).toFixed(2)+" · Quote: "+esc(x.quote_status||"")+" · Payment: "+esc(x.payment_status||"Pending")+(x.payment_reference?" · UTR: "+esc(x.payment_reference):"")+"</span>":"");
+    if(x.payment_status==="Payment Submitted" && x.quote_number){
+      const pay=document.createElement("button");
+      pay.type="button";pay.textContent="Mark Paid";pay.style.marginTop="8px";
+      pay.onclick=async(ev)=>{
+        ev.stopPropagation();
+        const r=await fetch("/api/admin/payment-status",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+key},body:JSON.stringify({quoteNumber:x.quote_number,status:"Paid"})});
+        const d=await r.json();alert(d.message||"Done");if(d.success)load();
+      };
+      e.appendChild(pay);
+    }
     e.onclick=()=>select(x);
     $("leads").appendChild(e)
   })
@@ -169,7 +179,12 @@ $("send").onclick=async()=>{
   $("msg").textContent=d.message||"Done";
   $("msg").className="status "+(d.success?"success":"error");
   $("send").disabled=false;
-  if(d.success)load()
+  if(d.success){
+    if(d.paymentUrl){
+      $("msg").innerHTML=esc(d.message||"Quotation created")+"<br><a href='"+esc(d.paymentUrl)+"' target='_blank' rel='noopener'>Open Customer Payment Page</a>";
+    }
+    load()
+  }
 };
 
 function esc(v){
