@@ -109,7 +109,7 @@ export default {
       const body = await request.json().catch(() => ({}));
       const leadId = Number(body.leadId);
       const items = Array.isArray(body.items) ? body.items : [];
-      const discount = Math.max(0, Number(body.discount) || 0);
+      const discountPercent = Math.max(0, Math.min(100, Number(body.discountPercent) || 0));
       const taxPercent = Math.max(0, Math.min(100, Number(body.taxPercent) || 0));
       const validityDays = Math.max(1, Math.min(365, Number(body.validityDays) || 7));
       const notes = String(body.notes || "").trim().slice(0, 2000);
@@ -128,7 +128,7 @@ export default {
       if (!lead) return Response.json({ success: false, message: "Lead not found." }, { status: 404 });
 
       const subtotal = Math.round(cleanItems.reduce((sum, item) => sum + item.qty * item.rate, 0) * 100) / 100;
-      const appliedDiscount = Math.round(Math.min(discount, subtotal) * 100) / 100;
+      const appliedDiscount = Math.round(subtotal * discountPercent / 100 * 100) / 100;
       const taxable = Math.max(0, subtotal - appliedDiscount);
       const taxAmount = Math.round(taxable * taxPercent / 100 * 100) / 100;
       const total = Math.round((taxable + taxAmount) * 100) / 100;
@@ -156,6 +156,7 @@ export default {
               items: cleanItems,
               subtotal,
               discount: appliedDiscount,
+              discountPercent,
               taxPercent,
               taxAmount,
               total,
