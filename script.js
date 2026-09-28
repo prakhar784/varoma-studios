@@ -53,7 +53,22 @@ if (contactForm) {
       const result = await response.json().catch(() => null);
       if (!response.ok || (result && result.success === false)) throw new Error('Request failed');
       contactForm.reset();
-      if (formMessage) formMessage.textContent = 'Thank you! Your inquiry has been sent successfully.';
+      if (formMessage) {
+        formMessage.innerHTML = `
+          <span class="inquiry-success-title">✓ Inquiry Sent Successfully</span>
+          <span class="inquiry-success-text">Thank you for contacting Varoma Studios. We’ve received your project requirements. Our team will review them and contact you shortly.</span>
+          <span class="inquiry-success-actions">
+            <a href="https://wa.me/918853245638?text=Hello%20Varoma%20Studios%2C%20I%20just%20submitted%20a%20project%20inquiry." target="_blank" rel="noopener">Chat on WhatsApp →</a>
+            <a href="#" class="inquiry-home-link">Back to Home</a>
+          </span>
+        `;
+        formMessage.className = 'inquiry-success';
+        const homeLink = formMessage.querySelector('.inquiry-home-link');
+        if (homeLink) homeLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
     } catch (error) {
       console.error('Form submission error:', error);
       if (formMessage) formMessage.textContent = 'Unable to send right now. Please try again or contact us on WhatsApp.';
@@ -227,6 +242,19 @@ contactStyles.textContent = `
   @media (prefers-reduced-motion: reduce) { .contact-visual *, .contact-visual::before { animation: none !important; } }
 `;
 document.head.appendChild(contactStyles);
+const inquirySuccessStyles = document.createElement('style');
+inquirySuccessStyles.textContent = `
+  .inquiry-success { margin-top: 18px; padding: 18px 20px; border: 1px solid rgba(83,200,255,.28); border-radius: 14px; background: linear-gradient(145deg, rgba(20,30,55,.96), rgba(15,18,36,.96)); box-shadow: 0 12px 30px rgba(0,0,0,.18); }
+  .inquiry-success-title { display: block; color: #fff; font-size: 17px; font-weight: 800; margin-bottom: 7px; }
+  .inquiry-success-text { display: block; color: #bfc5d8; line-height: 1.6; font-size: 14px; }
+  .inquiry-success-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .inquiry-success-actions a { display: inline-block; padding: 9px 13px; border-radius: 9px; border: 1px solid #34344c; color: #fff; text-decoration: none; font-size: 13px; font-weight: 700; background: #121224; }
+  .inquiry-success-actions a:first-child { border-color: rgba(83,200,255,.45); }
+  .inquiry-success-actions a:hover { transform: translateY(-1px); }
+  @media (max-width: 600px) { .inquiry-success-actions { flex-direction: column; } .inquiry-success-actions a { text-align: center; } }
+`;
+document.head.appendChild(inquirySuccessStyles);
+
 
 const currentYear = document.getElementById('currentYear');
 if (currentYear) currentYear.textContent = new Date().getFullYear();
