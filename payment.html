@@ -62,7 +62,7 @@ async function init(){
  });
  const upi="upi://pay?"+upiParams.toString();
  $("upiBtn").href=upi;
- $("qr").src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data="+encodeURIComponent(upi);
+ $("qr").src="/api/payment/qr?data="+encodeURIComponent(upi);
  if(quoteData.payment_status==="Paid"){
    $("status").textContent="Payment already verified for this quotation.";
    $("status").className="status success";$("submit").disabled=true;$("reference").disabled=true;
