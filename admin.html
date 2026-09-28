@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Varoma Studios Admin</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{max-width:1100px;margin:auto;padding:24px}.card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px;margin:16px 0}input,textarea,button{font:inherit}input,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;box-sizing:border-box}button{padding:10px 15px;border:0;border-radius:9px;background:#111;color:#fff;font-weight:700;cursor:pointer}.secondary{background:#eee;color:#111}.lead{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;cursor:pointer}.lead:hover{background:#fafafa}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.item-head{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin-top:18px;color:#555;font-size:13px;font-weight:700}.item{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin:6px 0}.item button{padding:10px;background:#111}.field-help{font-size:12px;color:#777;margin:5px 0 0}.label{font-weight:700;display:block;margin-bottom:6px}.muted{color:#666}.hidden{display:none}.total-box{margin-top:18px;padding:16px;background:#f7f7f7;border-radius:12px}.summary-row{display:flex;justify-content:space-between;margin:7px 0;color:#444}.total{font-size:24px;font-weight:800;margin-top:12px;padding-top:12px;border-top:1px solid #ddd}.section-title{margin-bottom:4px}.customer-box{margin:12px 0 4px;padding:12px;background:#f7f7f7;border-radius:10px}.status{margin-top:12px;font-weight:700}.dash-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.dash-card{background:#f8f9fb;border:1px solid #e5e7eb;border-radius:14px;padding:16px}.dash-label{font-size:12px;color:#666;font-weight:700}.dash-value{font-size:28px;font-weight:900;margin-top:5px}@media(max-width:900px){.dash-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.dash-grid{grid-template-columns:repeat(2,1fr)}}.success{color:#087a3d}.error{color:#b42318}@media(max-width:700px){.grid,.item-head,.item{grid-template-columns:1fr}.item-head{display:none}.item{padding:12px;background:#fafafa;border-radius:10px}.item button{width:100%}.wrap{padding:12px}}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{max-width:1100px;margin:auto;padding:24px}.card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px;margin:16px 0}input,textarea,button{font:inherit}input,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;box-sizing:border-box}button{padding:10px 15px;border:0;border-radius:9px;background:#111;color:#fff;font-weight:700;cursor:pointer}.secondary{background:#eee;color:#111}.lead{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;cursor:pointer}.lead:hover{background:#fafafa}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.item-head{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin-top:18px;color:#555;font-size:13px;font-weight:700}.item{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin:6px 0}.item button{padding:10px;background:#111}.field-help{font-size:12px;color:#777;margin:5px 0 0}.label{font-weight:700;display:block;margin-bottom:6px}.muted{color:#666}.hidden{display:none}.total-box{margin-top:18px;padding:16px;background:#f7f7f7;border-radius:12px}.summary-row{display:flex;justify-content:space-between;margin:7px 0;color:#444}.total{font-size:24px;font-weight:800;margin-top:12px;padding-top:12px;border-top:1px solid #ddd}.section-title{margin-bottom:4px}.customer-box{margin:12px 0 4px;padding:12px;background:#f7f7f7;border-radius:10px}.status{margin-top:12px;font-weight:700}.dash-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.dash-card{background:#f8f9fb;border:1px solid #e5e7eb;border-radius:14px;padding:16px}.dash-label{font-size:12px;color:#666;font-weight:700}.dash-value{font-size:28px;font-weight:900;margin-top:5px}@media(max-width:900px){.dash-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.dash-grid{grid-template-columns:repeat(2,1fr)}}.success{color:#087a3d}.error{color:#b42318}.details-panel{margin-top:12px;padding:14px;background:#f8f9fb;border:1px solid #e5e7eb;border-radius:12px}.details-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.detail-row{padding:9px;background:#fff;border-radius:9px;border:1px solid #eee}.detail-label{display:block;font-size:11px;color:#777;font-weight:700;text-transform:uppercase;margin-bottom:3px}.detail-value{font-weight:700;word-break:break-word}.detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.detail-link{display:inline-block;padding:9px 12px;border-radius:9px;background:#eee;color:#111;text-decoration:none;font-weight:700}@media(max-width:600px){.details-grid{grid-template-columns:1fr}}@media(max-width:700px){.grid,.item-head,.item{grid-template-columns:1fr}.item-head{display:none}.item{padding:12px;background:#fafafa;border-radius:10px}.item button{width:100%}.wrap{padding:12px}}
 </style>
 </head>
 <body>
@@ -210,7 +210,43 @@ function renderLeads(){
       track.style.padding="9px 12px";track.style.borderRadius="9px";track.style.background="#eee";track.style.color="#111";track.style.textDecoration="none";track.style.fontWeight="700";
       track.onclick=ev=>ev.stopPropagation();
       actions.appendChild(track);
+      
+      const detailsBtn=document.createElement("button");
+      detailsBtn.type="button";
+      detailsBtn.className="secondary";
+      detailsBtn.textContent="View Order Details";
+      actions.appendChild(detailsBtn);
+
+      const details=document.createElement("div");
+      details.className="details-panel hidden";
+      const created=x.created_at ? new Date(String(x.created_at).replace(" ","T")+"Z").toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"}) : "—";
+      const submitted=x.payment_submitted_at ? new Date(String(x.payment_submitted_at).replace(" ","T")+"Z").toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"}) : "—";
+      const paidAt=x.paid_at ? new Date(String(x.paid_at).replace(" ","T")+"Z").toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"}) : "—";
+      const paymentUrl="/payment.html?quote="+encodeURIComponent(x.quote_number);
+      const trackingUrl="/tracking.html?quote="+encodeURIComponent(x.quote_number);
+      details.innerHTML="<div class='details-grid'>"+
+        "<div class='detail-row'><span class='detail-label'>Customer</span><span class='detail-value'>"+esc(x.name)+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Email</span><span class='detail-value'>"+esc(x.email)+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Phone</span><span class='detail-value'>"+esc(x.phone)+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Service</span><span class='detail-value'>"+esc(x.service)+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Quote Number</span><span class='detail-value'>"+esc(x.quote_number)+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Quote Amount</span><span class='detail-value'>₹"+Number(x.quote_total||0).toFixed(2)+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Payment Status</span><span class='detail-value'>"+esc(x.payment_status||"Pending")+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>UTR / Reference</span><span class='detail-value'>"+esc(x.payment_reference||"—")+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Project Status</span><span class='detail-value'>"+esc(x.project_status||"Payment Pending")+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Lead Created</span><span class='detail-value'>"+esc(created)+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Payment Submitted</span><span class='detail-value'>"+esc(submitted)+"</span></div>"+
+        "<div class='detail-row'><span class='detail-label'>Payment Verified</span><span class='detail-value'>"+esc(paidAt)+"</span></div>"+
+        "</div>"+
+        "<div class='detail-row' style='margin-top:10px'><span class='detail-label'>Requirement</span><span class='detail-value'>"+esc(x.message)+"</span></div>"+
+        "<div class='detail-actions'><a class='detail-link' href='"+paymentUrl+"' target='_blank' rel='noopener'>Open Payment Page</a><a class='detail-link' href='"+trackingUrl+"' target='_blank' rel='noopener'>Open Tracking Page</a></div>";
+      detailsBtn.onclick=(ev)=>{
+        ev.stopPropagation();
+        details.classList.toggle("hidden");
+        detailsBtn.textContent=details.classList.contains("hidden")?"View Order Details":"Hide Order Details";
+      };
       e.appendChild(actions);
+      e.appendChild(details);
     }
     e.onclick=()=>select(x);
     $("leads").appendChild(e);
