@@ -18,6 +18,16 @@ body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{m
 
 <div id="app" class="hidden">
 <div class="card"><h1>Lead Management</h1><button class="secondary" id="refresh">Refresh Leads</button><button id="logout" style="margin-left:8px;background:#8b0000">Sign out</button></div>
+<div class="card">
+<h2>Dashboard Overview</h2>
+<div class="dash-grid">
+<div class="dash-card"><div class="dash-label">TOTAL LEADS</div><div class="dash-value" id="statLeads">0</div></div>
+<div class="dash-card"><div class="dash-label">QUOTATIONS</div><div class="dash-value" id="statQuotes">0</div></div>
+<div class="dash-card"><div class="dash-label">PENDING PAYMENTS</div><div class="dash-value" id="statPending">0</div></div>
+<div class="dash-card"><div class="dash-label">PAID PROJECTS</div><div class="dash-value" id="statPaid">0</div></div>
+<div class="dash-card"><div class="dash-label">ACTIVE PROJECTS</div><div class="dash-value" id="statActive">0</div></div>
+</div>
+</div>
 <div class="card"><h2>Customer Leads</h2><p class="muted">Select a customer lead below to create a quotation.</p><div id="leads"></div></div>
 
 <div id="quoteBox" class="card hidden">
