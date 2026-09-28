@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Varoma Studios Admin</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{max-width:1100px;margin:auto;padding:24px}.card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px;margin:16px 0}input,textarea,button{font:inherit}input,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;box-sizing:border-box}button{padding:10px 15px;border:0;border-radius:9px;background:#111;color:#fff;font-weight:700;cursor:pointer}.secondary{background:#eee;color:#111}.lead{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;cursor:pointer}.lead:hover{background:#fafafa}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.item-head{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin-top:18px;color:#555;font-size:13px;font-weight:700}.item{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin:6px 0}.item button{padding:10px;background:#111}.field-help{font-size:12px;color:#777;margin:5px 0 0}.label{font-weight:700;display:block;margin-bottom:6px}.muted{color:#666}.hidden{display:none}.total-box{margin-top:18px;padding:16px;background:#f7f7f7;border-radius:12px}.summary-row{display:flex;justify-content:space-between;margin:7px 0;color:#444}.total{font-size:24px;font-weight:800;margin-top:12px;padding-top:12px;border-top:1px solid #ddd}.section-title{margin-bottom:4px}.customer-box{margin:12px 0 4px;padding:12px;background:#f7f7f7;border-radius:10px}.status{margin-top:12px;font-weight:700}.success{color:#087a3d}.error{color:#b42318}@media(max-width:700px){.grid,.item-head,.item{grid-template-columns:1fr}.item-head{display:none}.item{padding:12px;background:#fafafa;border-radius:10px}.item button{width:100%}.wrap{padding:12px}}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{max-width:1100px;margin:auto;padding:24px}.card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px;margin:16px 0}input,textarea,button{font:inherit}input,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;box-sizing:border-box}button{padding:10px 15px;border:0;border-radius:9px;background:#111;color:#fff;font-weight:700;cursor:pointer}.secondary{background:#eee;color:#111}.lead{border:1px solid #ddd;border-radius:12px;padding:14px;margin:10px 0;cursor:pointer}.lead:hover{background:#fafafa}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.item-head{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin-top:18px;color:#555;font-size:13px;font-weight:700}.item{display:grid;grid-template-columns:2fr .7fr 1fr 42px;gap:8px;margin:6px 0}.item button{padding:10px;background:#111}.field-help{font-size:12px;color:#777;margin:5px 0 0}.label{font-weight:700;display:block;margin-bottom:6px}.muted{color:#666}.hidden{display:none}.total-box{margin-top:18px;padding:16px;background:#f7f7f7;border-radius:12px}.summary-row{display:flex;justify-content:space-between;margin:7px 0;color:#444}.total{font-size:24px;font-weight:800;margin-top:12px;padding-top:12px;border-top:1px solid #ddd}.section-title{margin-bottom:4px}.customer-box{margin:12px 0 4px;padding:12px;background:#f7f7f7;border-radius:10px}.status{margin-top:12px;font-weight:700}.dash-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.dash-card{background:#f8f9fb;border:1px solid #e5e7eb;border-radius:14px;padding:16px}.dash-label{font-size:12px;color:#666;font-weight:700}.dash-value{font-size:28px;font-weight:900;margin-top:5px}@media(max-width:900px){.dash-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.dash-grid{grid-template-columns:repeat(2,1fr)}}.success{color:#087a3d}.error{color:#b42318}@media(max-width:700px){.grid,.item-head,.item{grid-template-columns:1fr}.item-head{display:none}.item{padding:12px;background:#fafafa;border-radius:10px}.item button{width:100%}.wrap{padding:12px}}
 </style>
 </head>
 <body>
@@ -90,13 +90,28 @@ $("login").classList.add("hidden");$("app").classList.remove("hidden");load()
 $("refresh").onclick=load;
 $("logout").onclick=logout;
 
+function updateDashboard(leads){
+  const totalLeads=leads.length;
+  const quotes=leads.filter(x=>x.quote_number).length;
+  const pending=leads.filter(x=>x.quote_number && (x.payment_status||"Pending")!=="Paid").length;
+  const paid=leads.filter(x=>x.payment_status==="Paid").length;
+  const active=leads.filter(x=>["Planning","Development","Testing"].includes(x.project_status)).length;
+  $("statLeads").textContent=totalLeads;
+  $("statQuotes").textContent=quotes;
+  $("statPending").textContent=pending;
+  $("statPaid").textContent=paid;
+  $("statActive").textContent=active;
+}
+
 async function load(){
   const r=await fetch("/api/admin/leads",{credentials:"same-origin"});
   if(r.status===401){location.reload();return}
   const d=await r.json();
+  const leads=d.leads||[];
+  updateDashboard(leads);
   $("leads").innerHTML="";
-  if(!(d.leads||[]).length){$("leads").innerHTML="<p class='muted'>No customer leads found.</p>";return}
-  (d.leads||[]).forEach(x=>{
+  if(!leads.length){$("leads").innerHTML="<p class='muted'>No customer leads found.</p>";return}
+  leads.forEach(x=>{
     const e=document.createElement("div");
     e.className="lead";
     e.innerHTML="<b>#"+x.id+" — "+esc(x.name)+"</b><br><span class='muted'>"+esc(x.service)+" · "+esc(x.email)+" · "+esc(x.phone)+"</span><br>"+esc(x.message)+(x.quote_number?"<br><span class='muted'>Quote: "+esc(x.quote_number)+" · ₹"+Number(x.quote_total||0).toFixed(2)+" · Quote: "+esc(x.quote_status||"")+" · Payment: "+esc(x.payment_status||"Pending")+(x.payment_reference?" · UTR: "+esc(x.payment_reference):"")+"</span>":"");
