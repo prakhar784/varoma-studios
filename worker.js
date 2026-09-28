@@ -174,9 +174,37 @@ export default {
       const projectStatus = ["Payment Pending", "Planning", "Development", "Testing", "Delivered"].includes(body.status) ? body.status : null;
       if (!quoteNumber || !projectStatus) return Response.json({ success: false, message: "Quotation number and valid project status are required." }, { status: 400 });
       await ensureQuotesTable(env.VAROMA_DB);
-      const result = await env.VAROMA_DB.prepare("UPDATE quotes SET project_status=?, project_updated_at=CURRENT_TIMESTAMP WHERE quote_number=?").bind(projectStatus,quoteNumber).run();
+      const quote = await env.VAROMA_DB.prepare(
+        "SELECT id,quote_number,customer_name,customer_email,payment_status,project_status FROM quotes WHERE quote_number=?"
+      ).bind(quoteNumber).first();
+      if (!quote) return Response.json({ success: false, message: "Quotation not found." }, { status: 404 });
+
+      if (quote.project_status === projectStatus) {
+        return Response.json({ success: true, message: "Project status is already set to this value." });
+      }
+
+      const result = await env.VAROMA_DB.prepare(
+        "UPDATE quotes SET project_status=?, project_updated_at=CURRENT_TIMESTAMP WHERE quote_number=?"
+      ).bind(projectStatus,quoteNumber).run();
+
       if (!result.meta?.changes) return Response.json({ success: false, message: "Quotation not found." }, { status: 404 });
-      return Response.json({ success: true, message: "Project status updated." });
+
+      if (env.GMAIL_WEBHOOK_URL && env.GMAIL_WEBHOOK_SECRET) {
+        const trackingUrl = new URL("/tracking.html?quote=" + encodeURIComponent(quoteNumber), request.url).toString();
+        const notifyStatus = sendStatusNotification(env, ctx, {
+          quoteNumber,
+          customer: {
+            name: quote.customer_name,
+            email: quote.customer_email
+          },
+          status: projectStatus,
+          paymentStatus: quote.payment_status,
+          trackingUrl
+        });
+        ctx.waitUntil(notifyStatus);
+      }
+
+      return Response.json({ success: true, message: "Project status updated and customer notification is being processed." });
     }
 
     if (url.pathname === "/api/admin/payment-status") {
@@ -187,9 +215,37 @@ export default {
       const paymentStatus = ["Pending", "Payment Submitted", "Paid"].includes(body.status) ? body.status : null;
       if (!quoteNumber || !paymentStatus) return Response.json({ success: false, message: "Quote number and valid payment status are required." }, { status: 400 });
       await ensureQuotesTable(env.VAROMA_DB);
-      const result = await env.VAROMA_DB.prepare("UPDATE quotes SET payment_status=?, paid_at=CASE WHEN ?='Paid' THEN CURRENT_TIMESTAMP ELSE paid_at END WHERE quote_number=?").bind(paymentStatus, paymentStatus, quoteNumber).run();
+      const quote = await env.VAROMA_DB.prepare(
+        "SELECT id,quote_number,customer_name,customer_email,payment_status,project_status FROM quotes WHERE quote_number=?"
+      ).bind(quoteNumber).first();
+      if (!quote) return Response.json({ success: false, message: "Quotation not found." }, { status: 404 });
+
+      if (quote.payment_status === paymentStatus) {
+        return Response.json({ success: true, message: "Payment status is already set to this value." });
+      }
+
+      const result = await env.VAROMA_DB.prepare(
+        "UPDATE quotes SET payment_status=?, paid_at=CASE WHEN ?='Paid' THEN CURRENT_TIMESTAMP ELSE paid_at END WHERE quote_number=?"
+      ).bind(paymentStatus, paymentStatus, quoteNumber).run();
+
       if (!result.meta?.changes) return Response.json({ success: false, message: "Quotation not found." }, { status: 404 });
-      return Response.json({ success: true, message: "Payment status updated." });
+
+      if (paymentStatus === "Paid" && env.GMAIL_WEBHOOK_URL && env.GMAIL_WEBHOOK_SECRET) {
+        const trackingUrl = new URL("/tracking.html?quote=" + encodeURIComponent(quoteNumber), request.url).toString();
+        const notifyStatus = sendStatusNotification(env, ctx, {
+          quoteNumber,
+          customer: {
+            name: quote.customer_name,
+            email: quote.customer_email
+          },
+          status: "Payment Verified",
+          paymentStatus: "Paid",
+          trackingUrl
+        });
+        ctx.waitUntil(notifyStatus);
+      }
+
+      return Response.json({ success: true, message: "Payment status updated and customer notification is being processed." });
     }
 
     if (url.pathname === "/api/admin/quote") {
@@ -340,6 +396,33 @@ async function ensureQuotesTable(db) {
     "ALTER TABLE quotes ADD COLUMN project_updated_at TEXT"
   ]) {
     try { await db.prepare(sql).run(); } catch (_) {}
+  }
+}
+
+async function sendStatusNotification(env, ctx, data) {
+  try {
+    const response = await fetch(env.GMAIL_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        type: "status_update",
+        secret: env.GMAIL_WEBHOOK_SECRET,
+        quoteNumber: data.quoteNumber,
+        customer: data.customer,
+        status: data.status,
+        paymentStatus: data.paymentStatus || "",
+        trackingUrl: data.trackingUrl || ""
+      })
+    });
+
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.success) {
+      console.error("Status notification failed:", response.status, result);
+    }
+  } catch (error) {
+    console.error("Status notification error:", error);
   }
 }
 
