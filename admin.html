@@ -28,7 +28,38 @@ body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{m
 <div class="dash-card"><div class="dash-label">ACTIVE PROJECTS</div><div class="dash-value" id="statActive">0</div></div>
 </div>
 </div>
-<div class="card"><h2>Customer Leads</h2><p class="muted">Select a customer lead below to create a quotation.</p><div id="leads"></div></div>
+<div class="card">
+<h2>Customer Leads</h2>
+<div class="grid" style="margin:12px 0">
+<div>
+<label class="label" for="searchLeads">Search Orders</label>
+<input id="searchLeads" type="search" placeholder="Name, email, phone or quote number">
+</div>
+<div>
+<label class="label" for="paymentFilter">Payment Status</label>
+<select id="paymentFilter" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;box-sizing:border-box;font:inherit">
+<option value="all">All Payments</option>
+<option value="Pending">Pending</option>
+<option value="Payment Submitted">Payment Submitted</option>
+<option value="Paid">Paid</option>
+</select>
+</div>
+<div>
+<label class="label" for="projectFilter">Project Status</label>
+<select id="projectFilter" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:9px;box-sizing:border-box;font:inherit">
+<option value="all">All Projects</option>
+<option value="Payment Pending">Payment Pending</option>
+<option value="Planning">Planning</option>
+<option value="Development">Development</option>
+<option value="Testing">Testing</option>
+<option value="Delivered">Delivered</option>
+</select>
+</div>
+</div>
+<p id="filterCount" class="muted"></p>
+<p class="muted">Select a customer lead below to create a quotation.</p>
+<div id="leads"></div>
+</div>
 
 <div id="quoteBox" class="card hidden">
 <h2 class="section-title">Create Quotation</h2>
@@ -83,6 +114,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#f4f5f7;color:#111}.wrap{m
 
 <script>
 let lead=null;
+let allLeads=[];
 const $=id=>document.getElementById(id);
 
 async function logout(){
@@ -99,6 +131,9 @@ $("login").classList.add("hidden");$("app").classList.remove("hidden");load()
 
 $("refresh").onclick=load;
 $("logout").onclick=logout;
+$("searchLeads").oninput=renderLeads;
+$("paymentFilter").onchange=renderLeads;
+$("projectFilter").onchange=renderLeads;
 
 function updateDashboard(leads){
   const totalLeads=leads.length;
@@ -117,11 +152,28 @@ async function load(){
   const r=await fetch("/api/admin/leads",{credentials:"same-origin"});
   if(r.status===401){location.reload();return}
   const d=await r.json();
-  const leads=d.leads||[];
-  updateDashboard(leads);
+  allLeads=d.leads||[];
+  updateDashboard(allLeads);
+  renderLeads();
+}
+
+function renderLeads(){
+  const q=($("searchLeads").value||"").trim().toLowerCase();
+  const payment=$("paymentFilter").value;
+  const project=$("projectFilter").value;
+  const filtered=allLeads.filter(x=>{
+    const hay=[x.id,x.name,x.email,x.phone,x.quote_number,x.service].join(" ").toLowerCase();
+    const paymentOk=payment==="all" || (x.payment_status||"Pending")===payment;
+    const projectOk=project==="all" || (x.project_status||"Payment Pending")===project;
+    return (!q || hay.includes(q)) && paymentOk && projectOk;
+  });
+  $("filterCount").textContent=filtered.length+" of "+allLeads.length+" order"+(allLeads.length===1?"":"s")+" shown";
   $("leads").innerHTML="";
-  if(!leads.length){$("leads").innerHTML="<p class='muted'>No customer leads found.</p>";return}
-  leads.forEach(x=>{
+  if(!filtered.length){
+    $("leads").innerHTML="<p class='muted'>No orders match the selected search/filter.</p>";
+    return;
+  }
+  filtered.forEach(x=>{
     const e=document.createElement("div");
     e.className="lead";
     e.innerHTML="<b>#"+x.id+" — "+esc(x.name)+"</b><br><span class='muted'>"+esc(x.service)+" · "+esc(x.email)+" · "+esc(x.phone)+"</span><br>"+esc(x.message)+(x.quote_number?"<br><span class='muted'>Quote: "+esc(x.quote_number)+" · ₹"+Number(x.quote_total||0).toFixed(2)+" · Quote: "+esc(x.quote_status||"")+" · Payment: "+esc(x.payment_status||"Pending")+(x.payment_reference?" · UTR: "+esc(x.payment_reference):"")+"</span>":"");
@@ -161,8 +213,8 @@ async function load(){
       e.appendChild(actions);
     }
     e.onclick=()=>select(x);
-    $("leads").appendChild(e)
-  })
+    $("leads").appendChild(e);
+  });
 }
 
 function select(x){
