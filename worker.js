@@ -122,6 +122,21 @@ export default {
       return Response.json({ success: true, project });
     }
 
+    if (url.pathname === "/api/payment/qr" && request.method === "GET") {
+      const data = cleanParam(url.searchParams.get("data"), 2000);
+      if (!data) return new Response("QR data is required.", { status: 400 });
+      const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=" + encodeURIComponent(data);
+      const qrResponse = await fetch(qrUrl);
+      if (!qrResponse.ok) return new Response("QR service unavailable.", { status: 502 });
+      return new Response(qrResponse.body, {
+        status: 200,
+        headers: {
+          "Content-Type": qrResponse.headers.get("Content-Type") || "image/png",
+          "Cache-Control": "public, max-age=300"
+        }
+      });
+    }
+
     if (url.pathname === "/api/payment/quote" && request.method === "GET") {
       const quoteNumber = cleanParam(url.searchParams.get("quote"), 80);
       if (!quoteNumber) return Response.json({ success: false, message: "Quote number is required." }, { status: 400 });
